@@ -56,3 +56,37 @@ Prompt:
 Use case: illustration-story. Asset type: wide 3:1 educational scene for the sentence The cat sleeps on the sofa. Input image is a style reference only. EXACTLY ONE orange-and-white calico kitten sleeping curled up ON a cosy cobalt-blue sofa with rounded arms and short wooden legs. Pale sage wall, warm softly painted dimensional storybook look and gentle sunlight; subtle paper texture. Sofa and sleeping cat entirely visible in the central two thirds, camera straight on. Small cream fluffy rug below sofa. No extra animals, no other furniture, no book, no fish, no text, logos, letters or red. Wide landscape composition, consistent with the reference illustration.
 
 Maths fish reuse the existing token-based SVG `Fish` component in `components/art/Art.jsx`.
+
+
+## High-resolution scene delivery (2026-10-16)
+
+The app now loads the four `*-2x.webp` scene files. The original PNGs remain as
+source artwork. Only import paths change; scene aspect ratios, layout and
+percentage-based click targets stay the same.
+
+| Source PNG | Delivered WebP | Dimensions |
+| --- | --- | --- |
+| `home-empty-perch.png` | `home-empty-perch-2x.webp` | 3344 × 1882 |
+| `shop-reference.png` | `shop-reference-2x.webp` | 2968 × 2120 |
+| `wardrobe-empty-preview.png` | `wardrobe-empty-preview-2x.webp` | 2968 × 2120 |
+| `badges-reference.png` | `badges-reference-2x.webp` | 2968 × 2120 |
+
+These are local AI super-resolution results, not new generated compositions.
+Tool: [Real-ESRGAN portable macOS release 20220424](https://github.com/xinntao/Real-ESRGAN/releases/tag/v0.2.5.0),
+model `realesr-animevideov3` at native scale 2. No image-generation prompt is used.
+The built-in image-generation trial returned the original dimensions and was not
+used in the app.
+
+Run from the portable tool directory for each source:
+
+```sh
+./realesrgan-ncnn-vulkan -i SOURCE.png -o UPSCALED.png \
+  -n realesr-animevideov3 -s 2 -t 128 -j 1:1:1
+```
+
+Encode the upscaled RGB PNG as WebP with Pillow using `quality=96, method=6`.
+This delivery encoding reduces the four scenes to approximately 2.6 MB combined;
+the original PNG sources total approximately 7.2 MB. Keep the exact 2× dimensions.
+Verify the original text, empty perch, scene boundaries and click-target alignment
+before replacing an asset. AI upscaling improves edges but does not make baked-in
+text equivalent to native HTML text at every zoom level.

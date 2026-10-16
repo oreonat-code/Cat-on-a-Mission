@@ -5,7 +5,7 @@ import { ShirtArt, Icon } from '../components/AdventureArt.jsx';
 import AudioButton from '../components/AudioButton.jsx';
 import CatCharacter from '../components/CatCharacter.jsx';
 import { Stage, SceneTop, useSceneBack, OutfitThumb } from './ReferenceScenes.jsx';
-import shopImage from '../assets/cat-world/shop-reference.png';
+import shopImage from '../assets/cat-world/shop-reference-2x.webp';
 
 const categories = [
   { id: 'cats', name: 'Cats', hint: 'Choose a new furry friend.', products: cats, ownedKey: 'ownedCats', selectedKey: 'selectedCat', equipKey: 'selectCat' },

@@ -4,11 +4,11 @@ import { cats, outfits, shirts, useAdventure } from '../lib/adventure.jsx';
 import { useLogOut, useSession } from '../auth/session.jsx';
 import { ShirtArt, StudentAvatar } from '../components/AdventureArt.jsx';
 import CatCharacter from '../components/CatCharacter.jsx';
-import shopImage from '../assets/cat-world/shop-reference.png';
-import wardrobeImage from '../assets/cat-world/wardrobe-empty-preview.png';
+import shopImage from '../assets/cat-world/shop-reference-2x.webp';
+import wardrobeImage from '../assets/cat-world/wardrobe-empty-preview-2x.webp';
 import outfitsSprite from '../assets/cat-world/outfits-sprite.png';
 import beanieArt from '../assets/cat-world/beanie.png';
-import badgesImage from '../assets/cat-world/badges-reference.png';
+import badgesImage from '../assets/cat-world/badges-reference-2x.webp';
 
 function Hit({ label, box, onClick, className = '' }) {
   return <button className={`reference-hit ${className}`} style={{ left: `${box[0] / 1484 * 100}%`, top: `${box[1] / 1060 * 100}%`, width: `${box[2] / 1484 * 100}%`, height: `${box[3] / 1060 * 100}%` }} aria-label={label} onClick={onClick} />;

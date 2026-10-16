@@ -4,7 +4,7 @@ import { useAdventure } from '../lib/adventure.jsx';
 import { useLogOut, useSession } from '../auth/session.jsx';
 import { StudentAvatar } from '../components/AdventureArt.jsx';
 import CatCharacter from '../components/CatCharacter.jsx';
-import homeImage from '../assets/cat-world/home-empty-perch.png';
+import homeImage from '../assets/cat-world/home-empty-perch-2x.webp';
 
 export default function PapersPage() {
   const navigate = useNavigate();

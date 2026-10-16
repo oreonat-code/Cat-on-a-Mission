@@ -4,7 +4,7 @@ import { ShirtArt, StudentAvatar } from '../components/AdventureArt.jsx';
 import AudioButton from '../components/AudioButton.jsx';
 import CatCharacter from '../components/CatCharacter.jsx';
 import { Stage, SceneTop, useSceneBack, OutfitThumb } from './ReferenceScenes.jsx';
-import wardrobeImage from '../assets/cat-world/wardrobe-empty-preview.png';
+import wardrobeImage from '../assets/cat-world/wardrobe-empty-preview-2x.webp';
 
 function SectionTitle({ title, speech }) {
   return <div className="wardrobe-fixed-heading"><h2>{title}</h2><AudioButton text={speech} size={32} lip={3} label={`Listen: ${title}`} /></div>;
