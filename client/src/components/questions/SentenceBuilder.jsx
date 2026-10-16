@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import AudioButton from '../AudioButton.jsx';
 import { TitleRow } from '../QuestionShell.jsx';
-import { Mochi, MochiOnSofa } from '../art/Art.jsx';
+import { Mochi } from '../art/Art.jsx';
+import sofaCat from '../../assets/cat-world/sofa-cat.webp';
 import { BLANK, choicesText, joinSpeech } from '../../lib/speech-text.js';
 
 const PICTURES = {
-  'mochi-on-sofa': MochiOnSofa,
+  'mochi-on-sofa': sofaCat,
 };
 
 // "DOES WHAT?" -> "Does what?" so text-to-speech doesn't spell capitals out as letters.
@@ -26,7 +27,7 @@ export function buildSpeech(question, placed = {}) {
 export default function SentenceBuilder({ question, onComplete }) {
   const [placed, setPlaced] = useState({});
   const done = question.slots.every((slot) => placed[slot.key] !== undefined);
-  const Picture = PICTURES[question.picture];
+  const picture = PICTURES[question.picture];
 
   function place(tile) {
     if (placed[tile.slot] !== undefined) return;
@@ -51,7 +52,7 @@ export default function SentenceBuilder({ question, onComplete }) {
 
       <div className="builder-picture-wrap">
         <div className="picture-panel picture-panel--builder" role="img" aria-label={question.pictureLabel}>
-          {Picture && <Picture />}
+          {picture && <img className="story-scene-image" src={picture} alt="" />}
         </div>
       </div>
 
@@ -83,25 +84,16 @@ export default function SentenceBuilder({ question, onComplete }) {
       </div>
 
       <div className="tile-row">
-        {question.tiles.map((tile) => {
-          const colour = question.slots.find((s) => s.key === tile.slot).colour;
-          const used = placed[tile.slot] === tile.text;
-          return (
+        {question.slots.map((slot) => <fieldset className={`tile-group tile-group--${slot.colour}`} key={slot.key}>
+          <legend>{slot.label}</legend>
+          <div className="tile-group-choices">{question.tiles.filter((tile) => tile.slot === slot.key).map((tile) => (
             <div className="tile-with-audio" key={tile.text}>
-            <button
-              key={tile.text}
-              type="button"
-              className={`tile tile--${colour} ${used ? 'is-used' : ''}`}
-              // Other tiles of a filled colour are disabled but look unchanged, so nothing hints at right or wrong.
-              disabled={done || placed[tile.slot] !== undefined}
-              onClick={() => place(tile)}
-            >
-              {tile.text}
-            </button>
-            <AudioButton text={tile.text} size={36} label={`Listen to answer: ${tile.text}`} />
+              <button type="button" className={`tile tile--${slot.colour} ${placed[tile.slot] === tile.text ? 'is-used' : ''}`}
+                disabled={done || placed[tile.slot] !== undefined} onClick={() => place(tile)}>{tile.text}</button>
+              <AudioButton text={tile.text} size={36} label={`Listen to answer: ${tile.text}`} />
             </div>
-          );
-        })}
+          ))}</div>
+        </fieldset>)}
       </div>
     </>
   );

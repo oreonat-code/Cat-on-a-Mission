@@ -33,3 +33,26 @@ Saved asset: `client/src/assets/cat-world/sleeping-cats.webp`
 Prompt:
 
 Use case: illustration-story. Asset type: wide question illustration for early learning web app. Reference attached Which word fits question picture, style and content only. Three adorable cats sleeping side by side on a fluffy cream rug: orange and white calico at left, cream siamese with brown ears in middle, slate-blue cat at right. Closed eyes, curled tails and paws, sleepy peaceful expressions, small cobalt zzz marks. Pale sage wall behind them, very simple. Softly painted dimensional storybook illustration with subtle paper grain. Wide landscape crop 3:1 composition. No interface, no text except small sleep z marks, no frame, no watermark.
+
+
+# Remaining question artwork
+
+Generated with the built-in imagegen tool using `sleeping-cats.webp` as the style reference. Single-animal transparent WebP assets are repeated in React so counts remain exact.
+
+## sitting-cat.webp
+
+Saved asset: `client/src/assets/cat-world/sitting-cat.webp`
+
+Prompt:
+
+Use case: illustration-story. Asset type: transparent educational counting illustration for the existing CTY cat learning room. Input image is a style reference only. Create ONE complete orange-and-white calico kitten sitting upright with all four paws, head, ears and curled tail clearly visible, awake smiling navy eyes and tiny navy mouth. Exactly one kitten, no other creatures or props. Match the reference's warm softly painted dimensional storybook style, cream fur, orange patches, subtle paper texture and soft edges. Three quarter front view, generous clear transparent margins, no ground shadow or surrounding scene. No text, numbers, symbols, logos or red. Transparent background.
+
+## sofa-cat.webp
+
+Saved asset: `client/src/assets/cat-world/sofa-cat.webp`
+
+Prompt:
+
+Use case: illustration-story. Asset type: wide 3:1 educational scene for the sentence The cat sleeps on the sofa. Input image is a style reference only. EXACTLY ONE orange-and-white calico kitten sleeping curled up ON a cosy cobalt-blue sofa with rounded arms and short wooden legs. Pale sage wall, warm softly painted dimensional storybook look and gentle sunlight; subtle paper texture. Sofa and sleeping cat entirely visible in the central two thirds, camera straight on. Small cream fluffy rug below sofa. No extra animals, no other furniture, no book, no fish, no text, logos, letters or red. Wide landscape composition, consistent with the reference illustration.
+
+Maths fish reuse the existing token-based SVG `Fish` component in `components/art/Art.jsx`.

@@ -22,6 +22,7 @@ export const papers = [
         type: 'fill-the-gap',
         prompt: 'One cat or many cats?',
         picture: 'one-vs-many-cats',
+        pictureLabel: 'One cat beside a group of three cats',
         before: 'I see three',
         after: '.',
         slotWidth: 230,
@@ -74,6 +75,7 @@ export const papers = [
       {
         id: 'math-hop-100-001',
         type: 'number-track',
+        step: 100,
         prompt: 'Hop by 100. What comes next?',
         given: [100, 200],
         slots: 3,

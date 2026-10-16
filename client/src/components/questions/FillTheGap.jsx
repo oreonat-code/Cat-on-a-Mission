@@ -2,11 +2,12 @@ import AudioButton from '../AudioButton.jsx';
 import AnswerSlot from '../AnswerSlot.jsx';
 import { ChoiceRow, useSingleChoice } from '../ChoiceCard.jsx';
 import { TitleRow } from '../QuestionShell.jsx';
-import { Cat, Mochi } from '../art/Art.jsx';
+import { Mochi } from '../art/Art.jsx';
+import { StoryCat } from '../art/QuestionArt.jsx';
 import { BLANK, choicesText, joinSpeech, sentenceText } from '../../lib/speech-text.js';
 import sleepingCats from '../../assets/cat-world/sleeping-cats.webp';
 
-// Each picture keeps its own spacing from its artboard, and any text it shows (read aloud).
+// All picture text is included in the main read-aloud and has a local audio control.
 const PICTURES = {
   // Artboard 22 · is / are
   'three-sleeping-cats': {
@@ -26,16 +27,14 @@ const PICTURES = {
     render: () => (
       <div className="picture-cards">
         <div className="picture-card picture-card--wash">
-          <Cat colour="orange" size={120} />
-          <span className="picture-card-label">one cat</span>
+          <div className="counting-cats" role="img" aria-label="One cat"><StoryCat /></div>
+          <div className="picture-card-caption"><span className="picture-card-label">one cat</span><AudioButton text="One cat" size={36} label="Listen: one cat" /></div>
         </div>
         <div className="picture-card picture-card--seafoam">
-          <div className="picture-card-art">
-            <Cat colour="orange" size={110} />
-            <Cat colour="light" size={110} />
-            <Cat colour="slate" size={110} />
+          <div className="counting-cats" role="img" aria-label="Three cats">
+            {Array.from({ length: 3 }, (_, i) => <StoryCat key={i} />)}
           </div>
-          <span className="picture-card-label">three cats</span>
+          <div className="picture-card-caption"><span className="picture-card-label">three cats</span><AudioButton text="Three cats" size={36} label="Listen: three cats" /></div>
         </div>
       </div>
     ),
