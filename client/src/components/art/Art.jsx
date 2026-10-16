@@ -7,12 +7,20 @@ const FISH_COLOURS = {
 
 export function Fish({ colour = 'orange', outline = false, width = 84, height = 58 }) {
   if (outline) {
-    // A fish that swam away: dashed ink outline, no eye (artboard J2-0).
-    const dashed = { fill: 'none', stroke: 'var(--pc-ink)' };
+    // A fish that swam away: one dashed ink silhouette (body and tail drawn as a single path so no
+    // dashes cross inside the fish), no eye (artboard J2-0). pathLength lets the dashes divide evenly.
     return (
       <svg width={width} height={height} viewBox="0 0 64 44" aria-hidden="true" className="art">
-        <ellipse cx="26" cy="22" rx="22" ry="16" strokeWidth="3" strokeDasharray="6 5" style={dashed} />
-        <path d="M44 22l18-14v28z" strokeWidth="3" strokeDasharray="6 5" style={dashed} />
+        <path
+          d="M47.65 19.16 62 8v28l-14.35-11.16A22 16 0 1 1 47.65 19.16Z"
+          pathLength="100"
+          fill="none"
+          strokeWidth="3"
+          strokeDasharray="3.4 2.156"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ stroke: 'var(--pc-ink)' }}
+        />
       </svg>
     );
   }

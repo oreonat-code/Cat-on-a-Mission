@@ -83,18 +83,21 @@ export default function SentenceBuilder({ question, onComplete }) {
         })}
       </div>
 
-      <div className="tile-row">
-        {question.slots.map((slot) => <fieldset className={`tile-group tile-group--${slot.colour}`} key={slot.key}>
-          <legend>{slot.label}</legend>
-          <div className="tile-group-choices">{question.tiles.filter((tile) => tile.slot === slot.key).map((tile) => (
+      <div className="tile-row tile-row--flat" role="group" aria-label="Word choices">
+        {question.tiles.map((tile) => {
+          const slot = question.slots.find((s) => s.key === tile.slot);
+          return (
             <div className="tile-with-audio" key={tile.text}>
               <button type="button" className={`tile tile--${slot.colour} ${placed[tile.slot] === tile.text ? 'is-used' : ''}`}
-                disabled={done || placed[tile.slot] !== undefined} onClick={() => place(tile)}>{tile.text}</button>
+                disabled={done || placed[tile.slot] !== undefined} onClick={() => place(tile)}>
+                {tile.text}<span className="sr-only"> ({spoken(slot.label)})</span>
+              </button>
               <AudioButton text={tile.text} size={36} label={`Listen to answer: ${tile.text}`} />
             </div>
-          ))}</div>
-        </fieldset>)}
+          );
+        })}
       </div>
+      <p className="builder-hint">Orange words say what happens. Green words say where. Match the colours and shapes.</p>
     </>
   );
 }

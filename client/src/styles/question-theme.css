@@ -29,7 +29,7 @@
 .picture-panel--takeaway .story-fish { width: 83px; height: 65px; }
 .picture-panel--takeaway .fish-scene-group { gap: 10px; }
 .story-fish--departed { background: none; }
-.fish-away-arrow { position: absolute; right: 3px; top: 2px; }
+.fish-away-arrow { position: absolute; top: 50%; left: 50%; transform: translate(calc(-50% - 8px), -50%); } /* inside the dashed body, clear of the outline */
 .swim-away-divider { font-size: 40px; font-weight: 900; flex-shrink: 0; }
 
 /* One cat and three cats use identical single-animal assets so quantity is the only difference. */
@@ -79,7 +79,7 @@
 @media (min-width: 701px) and (max-height: 800px) {
   .question-scene { padding-top: 14px; padding-bottom: 18px; }
   .question-scene .shell-header { margin-bottom: 12px; }
-  .question-scene .title-row > .audio-button { width: 64px !important; height: 64px !important; }
+  .question-scene .title-row > .audio-button { width: 78px !important; height: 78px !important; }
   .question-scene .prompt { font-size: clamp(30px, 3.5vw, 47px); }
   .question-scene .question-kicker { margin-bottom: 8px; }
   .question-scene .picture-wrap, .question-scene .builder-picture-wrap { padding-top: 14px; }
@@ -103,3 +103,18 @@
   .question-scene .number-hop { top: 10px; }
   .question-scene .number-path .track-cell { height: 64px; }
 }
+
+/* Sentence builder: small coloured captions, a solid blue "who" card, dashed/dotted empty slots and one row of outlined words. */
+.question-scene .builder-label { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+.question-scene .builder-label--blue { color: var(--color-cobalt-deep); }
+.question-scene .builder-label--mochi { color: var(--color-text-mochi); }
+.question-scene .builder-label--mint { color: var(--color-text-mint); }
+.question-scene .builder-slot { min-height: 76px; border-width: 3px; border-radius: 24px; box-shadow: none; }
+.question-scene .builder-slot--given { background: var(--color-cobalt); border-color: var(--color-cobalt); color: var(--color-text-on-fill, var(--color-surface)); box-shadow: 0 6px 0 var(--color-cobalt-deep); }
+.question-scene .builder-slot--mochi { border-color: var(--color-mochi); background: var(--color-mochi-wash); }
+.question-scene .builder-slot--mint { border-color: var(--color-mint); background: var(--color-mint-wash); }
+.question-scene .tile-row--flat { max-width: 860px; margin: auto; flex-wrap: wrap; justify-content: center; gap: 18px 20px; padding-top: 28px; }
+.question-scene .tile-row--flat .tile { min-width: 120px; min-height: 62px; padding: 8px 22px; border-width: 3px; border-radius: 22px; background: var(--color-surface); font-size: 25px; }
+.question-scene .tile--mochi { border-color: var(--color-mochi); box-shadow: 0 5px 0 var(--color-mochi-tint); }
+.question-scene .tile--mint { border-style: dotted; border-color: var(--color-mint); box-shadow: 0 5px 0 var(--color-mint-tint); }
+.builder-hint { margin: 14px 0 0; text-align: center; font-size: 17px; font-weight: 800; color: var(--color-text-muted); }
