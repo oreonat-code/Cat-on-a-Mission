@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import PapersPage from './pages/PapersPage.jsx';
 import PaperRunner from './pages/PaperRunner.jsx';
 import DonePage from './pages/DonePage.jsx';
+import { ShopPage, WardrobePage, BadgesPage } from './pages/ReferenceScenes.jsx';
 
 export default function App() {
   const { pathname } = useLocation();
@@ -10,6 +11,9 @@ export default function App() {
   return (
     <Routes>
       <Route path="/papers" element={<PapersPage />} />
+      <Route path="/papers/shop" element={<ShopPage />} />
+      <Route path="/papers/wardrobe" element={<WardrobePage />} />
+      <Route path="/papers/badges" element={<BadgesPage />} />
       <Route path="/papers/:subject" element={<PaperRunner />} />
       <Route path="/papers/:subject/done" element={<DonePage />} />
       <Route path="*" element={<Navigate to="/papers" replace />} />
