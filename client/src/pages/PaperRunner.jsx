@@ -18,10 +18,12 @@ const QUESTION_TYPES = {
   'sentence-builder': SentenceBuilder,
 };
 
-// Pause after the last tap so the child sees their answer before moving on.
-const ADVANCE_DELAY_MS = 900;
+// Pause after the last tap so the child sees their answer, and the fish lands, before moving on.
+const ADVANCE_DELAY_MS = 1100;
 // The last fish still has to leap into the bowl and the burst has to play before the done page.
 const FINISH_DELAY_MS = 1500;
+// The question slides out this long before the next one (or the done page) takes over.
+const EXIT_MS = 220;
 
 export default function PaperRunner() {
   const { subject } = useParams();
@@ -30,11 +32,12 @@ export default function PaperRunner() {
   const [index, setIndex] = useState(0);
   // In memory only (PDPA). Kept for the future star feature; never shown to the child.
   const [answers, setAnswers] = useState([]);
-  const timer = useRef();
+  const timers = useRef([]);
+  const [leaving, setLeaving] = useState(false);
   const completedQuestion = useRef(null);
   const { earnFish, finish } = useAdventure();
 
-  useEffect(() => () => { clearTimeout(timer.current); stopSpeaking(); }, []);
+  useEffect(() => () => { timers.current.forEach(clearTimeout); stopSpeaking(); }, []);
   useEffect(() => {
     document.querySelector('.prompt')?.focus({ preventScroll: true });
     window.scrollTo(0, 0);
@@ -54,13 +57,20 @@ export default function PaperRunner() {
     const next = [...answers, { questionId: question.id, chosen, correct }];
     setAnswers(next);
     earnFish();
-    timer.current = setTimeout(() => {
-      if (index + 1 < paper.questions.length) setIndex(index + 1);
-      else {
-        finish(paper.id);
-        navigate(`/papers/${paper.id}/done`, { replace: true, state: { earned: next.length } });
-      }
-    }, index + 1 < paper.questions.length ? ADVANCE_DELAY_MS : FINISH_DELAY_MS);
+    const isLast = index + 1 >= paper.questions.length;
+    const delay = isLast ? FINISH_DELAY_MS : ADVANCE_DELAY_MS;
+    timers.current = [
+      setTimeout(() => setLeaving(true), delay - EXIT_MS),
+      setTimeout(() => {
+        if (!isLast) {
+          setIndex(index + 1);
+          setLeaving(false);
+        } else {
+          finish(paper.id);
+          navigate(`/papers/${paper.id}/done`, { replace: true, state: { earned: next.length } });
+        }
+      }, delay),
+    ];
   }
 
   return (
@@ -71,7 +81,7 @@ export default function PaperRunner() {
         steps={paper.questions.length}
         onClose={() => navigate('/papers')}
       />
-      <section className="question-content" aria-label={`${paper.title} adventure, question ${index + 1} of ${paper.questions.length}`}>
+      <section key={question.id} className={'question-content' + (leaving ? ' is-leaving' : '')} aria-label={`${paper.title} adventure, question ${index + 1} of ${paper.questions.length}`}>
         <p className="question-kicker">{paper.id === 'math' ? 'Maths' : 'English'} Adventure <span aria-hidden="true">·</span> {index + 1} of {paper.questions.length}</p>
         {Question && <Question key={question.id} question={question} onComplete={handleComplete} />}
       </section>

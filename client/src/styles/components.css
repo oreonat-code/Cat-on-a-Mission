@@ -267,3 +267,16 @@ button:active:not(:disabled) { transform: translateY(2px); }
 /* Reduced motion and Calm mode already switch every CSS animation and transition off (base.css); the trail line and count still update. */
 @media (prefers-reduced-motion: reduce) { .burst, .fly-fish, .trail-glint { display: none; } }
 html[data-calm="true"] .burst, html[data-calm="true"] .fly-fish, html[data-calm="true"] .trail-glint { display: none; }
+
+/* ---- Between questions: the finished card slides out, the next one slides in and its parts cascade ---- */
+.question-content { animation: question-in 320ms var(--ease-out) both; }
+.question-content.is-leaving { animation: question-out 220ms var(--ease-out) both; pointer-events: none; }
+.question-content > * { animation: part-in 300ms var(--ease-out) both; }
+.question-content > :nth-child(2) { animation-delay: 70ms; }
+.question-content > :nth-child(3) { animation-delay: 110ms; }
+.question-content > :nth-child(4) { animation-delay: 150ms; }
+.question-content > :nth-child(n+5) { animation-delay: 190ms; }
+.question-content.is-leaving > * { animation: none; }
+@keyframes question-in { from { transform: translateX(56px); opacity: 0; } }
+@keyframes question-out { to { transform: translateX(-56px); opacity: 0; } }
+@keyframes part-in { from { transform: translateY(12px); opacity: 0; } }
