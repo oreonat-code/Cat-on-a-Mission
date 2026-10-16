@@ -1,0 +1,423 @@
+/* Measurements copied from design/mockups/*.jsx (Paper exports). */
+
+.art {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ---- Header row (artboard 6) ---------------------------------------- */
+.shell-header {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 32px 80px;
+}
+
+.close-button {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 26px;
+  background: var(--pc-quiet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-track {
+  flex: 1 1 0%;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--pc-quiet);
+  display: flex;
+}
+
+.progress-fill {
+  height: 20px;
+  border-radius: 10px;
+  background: var(--pc-blue);
+  transition: width 300ms ease-out;
+}
+
+.star-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--pc-star-wash);
+}
+
+.star-count {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 28px;
+}
+
+/* ---- Title row ------------------------------------------------------- */
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prompt {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 64px;
+}
+
+.audio-button {
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--pc-blue);
+  box-shadow: var(--pc-blue-deep) 0 var(--lip) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 80ms, box-shadow 80ms;
+}
+
+.audio-button:active {
+  transform: translateY(4px);
+  box-shadow: var(--pc-blue-deep) 0 2px 0;
+}
+
+.audio-button.is-speaking {
+  box-shadow: var(--pc-blue-deep) 0 var(--lip) 0, 0 0 0 4px var(--pc-blue-soft);
+}
+
+/* ---- Picture panels -------------------------------------------------- */
+.picture-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-seafoam);
+}
+
+.picture-panel--math {
+  gap: 48px;
+  margin: 28px 200px 0;
+  padding: 36px 0;
+  border-radius: 40px;
+}
+
+.fish-group {
+  display: flex;
+  gap: 20px;
+}
+
+.panel-plus {
+  color: var(--pc-blue);
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 88px;
+}
+
+.picture-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 28px;
+}
+
+.picture-panel--word {
+  width: 640px;
+  height: 220px;
+  flex-shrink: 0;
+  gap: 28px;
+  border-radius: 36px;
+}
+
+/* ---- Equation (math) and sentence (english) ------------------------- */
+.equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding-top: 28px;
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 104px;
+}
+
+.eq-op {
+  color: var(--pc-blue);
+}
+
+.sentence {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 40px;
+  font-size: 84px;
+  font-weight: 900;
+  line-height: 92px;
+}
+
+/* ---- Answer slot ----------------------------------------------------- */
+.slot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-blue-wash);
+  border: 4px dashed;
+  border-radius: 24px;
+}
+
+.slot.is-filled {
+  border-style: solid;
+}
+
+.slot--math {
+  width: 130px;
+  height: 104px;
+  border-color: var(--pc-blue-soft);
+}
+
+.slot--word {
+  width: 190px;
+  height: 100px;
+  border-color: var(--pc-blue);
+}
+
+.slot-value {
+  font-weight: 900;
+  animation: slot-pop 180ms ease-out;
+}
+
+.slot--math .slot-value {
+  font-size: 56px;
+  line-height: 68px;
+}
+
+.slot--word .slot-value {
+  font-size: 64px;
+  line-height: 78px;
+}
+
+@keyframes slot-pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* ---- Choice cards ---------------------------------------------------- */
+.choice-row {
+  display: flex;
+  justify-content: center;
+}
+
+.choice {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-white);
+  border: 4px solid var(--pc-line);
+  box-shadow: var(--pc-line) 0 var(--lip) 0;
+  transition: transform 80ms, box-shadow 80ms, border-color 80ms;
+}
+
+.choice-label {
+  display: flex;
+  font-weight: 900;
+}
+
+.choice--math {
+  --lip: 6px;
+  width: 180px;
+  height: 110px;
+  border-radius: 28px;
+}
+
+.choice--math .choice-label {
+  font-size: 56px;
+  line-height: 68px;
+}
+
+.choice--word {
+  --lip: 7px;
+  width: 260px;
+  height: 120px;
+  border-radius: 30px;
+}
+
+.choice--word .choice-label {
+  font-size: 64px;
+  line-height: 78px;
+}
+
+.choice:hover:not(:disabled) {
+  border-color: var(--pc-blue-soft);
+}
+
+.choice:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: var(--pc-line) 0 2px 0;
+}
+
+/* Disabled cards stay visually unchanged so nothing hints at right or wrong. */
+.choice:disabled {
+  cursor: default;
+}
+
+.choice.is-used {
+  border-color: var(--pc-blue-soft);
+  box-shadow: none;
+  transform: translateY(var(--lip));
+}
+
+/* ---- Papers page ----------------------------------------------------- */
+.papers-header {
+  display: flex;
+  align-items: center;
+  padding: 32px 80px;
+}
+
+.logo {
+  height: 64px;
+  width: auto;
+  display: block;
+}
+
+.papers-title {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 64px;
+}
+
+.papers-subtitle {
+  margin: 8px 0 0;
+  text-align: center;
+  color: var(--pc-ink-muted);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+.subject-cards {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding-top: 64px;
+}
+
+.subject-card-wrap {
+  position: relative;
+}
+
+.subject-card {
+  width: 480px;
+  height: 400px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  background: var(--pc-white);
+  border: 4px solid var(--pc-line);
+  border-radius: 40px;
+  box-shadow: var(--pc-line) 0 8px 0;
+  transition: transform 80ms, box-shadow 80ms, border-color 80ms;
+}
+
+.subject-card:hover {
+  border-color: var(--pc-blue-soft);
+}
+
+.subject-card:active {
+  transform: translateY(6px);
+  box-shadow: var(--pc-line) 0 2px 0;
+}
+
+.subject-panel {
+  width: 400px;
+  height: 220px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  background: var(--pc-seafoam);
+}
+
+.subject-panel--english {
+  gap: 20px;
+}
+
+.subject-panel--math {
+  gap: 24px;
+}
+
+.subject-panel--math .fish-group {
+  gap: 12px;
+}
+
+.subject-panel--math .panel-plus {
+  font-size: 48px;
+  line-height: 56px;
+}
+
+.subject-name {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 64px;
+}
+
+.subject-audio {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+/* ---- All done -------------------------------------------------------- */
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24px;
+}
+
+.done-title {
+  margin: 24px 0 0;
+  font-size: 84px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 92px;
+}
+
+.done-subtitle {
+  margin: 8px 0 0;
+  color: var(--pc-ink-muted);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.primary-button {
+  margin-top: 56px;
+  width: 360px;
+  height: 100px;
+  border-radius: 30px;
+  background: var(--pc-blue);
+  box-shadow: var(--pc-blue-deep) 0 7px 0;
+  color: var(--pc-white);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 48px;
+  transition: transform 80ms, box-shadow 80ms;
+}
+
+.primary-button:active {
+  transform: translateY(5px);
+  box-shadow: var(--pc-blue-deep) 0 2px 0;
+}

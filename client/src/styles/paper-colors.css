@@ -1,0 +1,27 @@
+/*
+ * Colours from the Paper mockups (file "hfg", artboards 6 and 22).
+ * Components use these variables only; no hex values in components.
+ * These are the older palette, not design/colors/tokens.css (see .plans/papers-mvp-rfc.md §9).
+ */
+:root {
+  --pc-ink: #12263f;
+  --pc-ink-muted: #575b7c;
+  --pc-white: #ffffff;
+
+  --pc-blue: #2557d6;          /* audio button, progress fill, operators, blue fish */
+  --pc-blue-deep: #17399a;     /* lip under blue buttons */
+  --pc-blue-soft: #bfd0f5;     /* math slot border, hover border */
+  --pc-blue-wash: #f3f7ff;     /* empty answer slot */
+
+  --pc-quiet: #eef1f6;         /* close button, progress track */
+  --pc-line: #e3e8ef;          /* choice card border and lip */
+  --pc-seafoam: #ddf5ee;       /* picture panels */
+
+  --pc-star-wash: #fff3cc;
+  --pc-star: #ffc93c;
+  --pc-star-edge: #e0a400;
+
+  --pc-orange: #f29b4b;        /* Mochi, orange fish */
+  --pc-orange-light: #e8b07a;
+  --pc-slate: #5b6b80;
+}
