@@ -20,6 +20,8 @@ const QUESTION_TYPES = {
 
 // Pause after the last tap so the child sees their answer before moving on.
 const ADVANCE_DELAY_MS = 900;
+// The last fish still has to leap into the bowl and the burst has to play before the done page.
+const FINISH_DELAY_MS = 1500;
 
 export default function PaperRunner() {
   const { subject } = useParams();
@@ -58,7 +60,7 @@ export default function PaperRunner() {
         finish(paper.id);
         navigate(`/papers/${paper.id}/done`, { replace: true, state: { earned: next.length } });
       }
-    }, ADVANCE_DELAY_MS);
+    }, index + 1 < paper.questions.length ? ADVANCE_DELAY_MS : FINISH_DELAY_MS);
   }
 
   return (
