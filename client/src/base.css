@@ -1,0 +1,15 @@
+/* App-wide base styles. All colour comes from design/colors/tokens.css (see AGENTS.md). */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: 1.45;
+}
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--color-cobalt); outline-offset: 2px; }

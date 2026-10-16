@@ -380,7 +380,8 @@
 }
 
 /* ---- All done -------------------------------------------------------- */
-.done {
+/* Scoped to .canvas: the dashboard also uses a "done" class on its class tiles. */
+.canvas > .done {
   display: flex;
   flex-direction: column;
   align-items: center;
