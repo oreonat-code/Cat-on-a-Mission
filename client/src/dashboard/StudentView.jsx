@@ -1,7 +1,18 @@
 import { useState } from 'react';
-import { MAX_TOPIC_SCORE, QUESTIONS_PER_STUDENT, topicScores } from './mockData.js';
+import { Link, useOutletContext, useParams } from 'react-router-dom';
+import { NotFoundView } from './PlaceholderView.jsx';
+import { MAX_TOPIC_SCORE, QUESTIONS_PER_STUDENT, findClass, findStudent, topicScores } from './mockData.js';
 
-export default function StudentView({ subject, classId, student, onHome, onOpenClass }) {
+export default function StudentView() {
+  const { classId, studentId } = useParams();
+  const cls = findClass(classId);
+  const student = findStudent(studentId);
+  if (!cls || !student) return <NotFoundView title="Student not found" />;
+  return <StudentDetail cls={cls} student={student} />;
+}
+
+function StudentDetail({ cls, student }) {
+  const { subject } = useOutletContext();
   const [chart, setChart] = useState('bars');
 
   const scores = topicScores(student, subject);
@@ -29,18 +40,18 @@ export default function StudentView({ subject, classId, student, onHome, onOpenC
     <>
       <p className="crumbs">
         <Link to="/dashboard">{subject}</Link> &gt;{' '}
-        <Link to={`/dashboard/class/${classId}`}>{student.class.name}</Link> &gt; {student.name}
+        <Link to={`/dashboard/class/${cls.id}`}>{cls.name}</Link> &gt; {student.name}
       </p>
-      <span className="tag">{student.class.name}</span>
+      <span className="tag">{cls.name}</span>
       <div className="stack">
         <div className="panel two">
           <div className="card">
             <h2>Questions complete</h2>
             <p className="big">
-              {answered}<small>/{questionsPerStudent}</small>
+              {student.answered}<small>/{QUESTIONS_PER_STUDENT}</small>
             </p>
             <div className="bar" aria-hidden="true">
-              <i style={{ width: `${(answered / questionsPerStudent) * 100}%` }} />
+              <i style={{ width: `${pct}%` }} />
             </div>
           </div>
           <div className="card">
