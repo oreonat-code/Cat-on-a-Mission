@@ -23,6 +23,8 @@ export default function DashboardLayout() {
   const [subject, setSubject] = useState(SUBJECTS[0]);
   const [level, setLevel] = useState(LEVELS[0]);
   const current = activeNav(pathname);
+  // Subject and level filters only apply to the Home overview.
+  const showFilters = pathname.replace(/\/$/, '') === '/dashboard';
 
   async function logout() {
     await signOut();
@@ -52,12 +54,16 @@ export default function DashboardLayout() {
       </aside>
       <main>
         <div className="top">
-          <select className="sel" aria-label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)}>
-            {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
-          </select>
-          <select className="sel" aria-label="Level" value={level} onChange={(e) => setLevel(e.target.value)}>
-            {LEVELS.map((l) => <option key={l}>{l}</option>)}
-          </select>
+          {showFilters && (
+            <>
+              <select className="sel" aria-label="Subject" value={subject} onChange={(e) => setSubject(e.target.value)}>
+                {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
+              </select>
+              <select className="sel" aria-label="Level" value={level} onChange={(e) => setLevel(e.target.value)}>
+                {LEVELS.map((l) => <option key={l}>{l}</option>)}
+              </select>
+            </>
+          )}
           <span className="user">{session.id}</span>
         </div>
         <Outlet context={{ subject, level }} />
