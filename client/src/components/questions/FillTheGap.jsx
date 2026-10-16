@@ -2,8 +2,9 @@ import AudioButton from '../AudioButton.jsx';
 import AnswerSlot from '../AnswerSlot.jsx';
 import { ChoiceRow, useSingleChoice } from '../ChoiceCard.jsx';
 import { TitleRow } from '../QuestionShell.jsx';
-import { Cat, Mochi, SleepingCat } from '../art/Art.jsx';
+import { Cat, Mochi } from '../art/Art.jsx';
 import { BLANK, choicesText, joinSpeech, sentenceText } from '../../lib/speech-text.js';
+import sleepingCats from '../../assets/cat-world/sleeping-cats.webp';
 
 // Each picture keeps its own spacing from its artboard, and any text it shows (read aloud).
 const PICTURES = {
@@ -13,9 +14,7 @@ const PICTURES = {
     render: ({ label }) => (
       <div className="picture-wrap">
         <div className="picture-panel picture-panel--word" role="img" aria-label={label}>
-          <SleepingCat colour="orange" />
-          <SleepingCat colour="light" />
-          <SleepingCat colour="slate" />
+          <img className="sleeping-cats-picture" src={sleepingCats} alt="" />
         </div>
       </div>
     ),

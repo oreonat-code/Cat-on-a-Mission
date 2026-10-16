@@ -1,36 +1,26 @@
-/*
- * Colours from the Paper mockups (file "hfg", artboards 6 and 22).
- * Components use these variables only; no hex values in components.
- * These are the older palette, not design/colors/tokens.css (see .plans/papers-mvp-rfc.md §9).
- */
+/* Compatibility aliases for the existing SVG artwork. All UI colours originate in design/colors/tokens.css. */
 :root {
-  --pc-ink: #12263f;
-  --pc-ink-muted: #575b7c;
-  --pc-white: #ffffff;
-
-  --pc-blue: #2557d6;          /* audio button, progress fill, operators, blue fish */
-  --pc-blue-deep: #17399a;     /* lip under blue buttons */
-  --pc-blue-soft: #bfd0f5;     /* math slot border, hover border */
-  --pc-blue-wash: #f3f7ff;     /* empty answer slot */
-
-  --pc-quiet: #eef1f6;         /* close button, progress track */
-  --pc-line: #e3e8ef;          /* choice card border and lip */
-  --pc-seafoam: #ddf5ee;       /* picture panels */
-
-  --pc-star-wash: #fff3cc;
-  --pc-star: #ffc93c;
-  --pc-star-edge: #e0a400;
-
-  --pc-orange: #f29b4b;        /* Mochi, orange fish, "does what" border */
-  --pc-orange-light: #e8b07a;
-  --pc-slate: #5b6b80;
-
-  /* Sentence builder (artboard TQ-0) */
-  --pc-mochi-wash: #fff4e6;    /* "does what" slot */
-  --pc-mochi-tint: #fbd3ae;    /* lip under orange tiles */
-  --pc-text-mochi: #c26a1a;    /* "DOES WHAT?" label */
-  --pc-mint: #3dbba0;          /* "where" border */
-  --pc-mint-wash: #e7f8f3;     /* "where" slot */
-  --pc-mint-tint: #bfe6d8;     /* lip under green tiles */
-  --pc-text-mint: #1e8a72;     /* "WHERE?" label */
+  --pc-ink: var(--color-ink);
+  --pc-ink-muted: var(--color-text-muted);
+  --pc-white: var(--color-surface);
+  --pc-blue: var(--color-cobalt);
+  --pc-blue-deep: var(--color-cobalt-deep);
+  --pc-blue-soft: var(--color-cobalt-tint);
+  --pc-blue-wash: var(--color-cobalt-wash);
+  --pc-quiet: var(--color-surface-quiet);
+  --pc-line: var(--color-line-strong);
+  --pc-seafoam: var(--color-seafoam);
+  --pc-star-wash: var(--color-cream);
+  --pc-star: var(--color-star);
+  --pc-star-edge: var(--color-star-edge);
+  --pc-orange: var(--color-mochi);
+  --pc-orange-light: var(--color-mochi-tint);
+  --pc-slate: var(--color-text-muted);
+  --pc-mochi-wash: var(--color-mochi-wash);
+  --pc-mochi-tint: var(--color-mochi-tint);
+  --pc-text-mochi: var(--color-text-mochi);
+  --pc-mint: var(--color-mint);
+  --pc-mint-wash: var(--color-mint-wash);
+  --pc-mint-tint: var(--color-mint-tint);
+  --pc-text-mint: var(--color-text-mint);
 }

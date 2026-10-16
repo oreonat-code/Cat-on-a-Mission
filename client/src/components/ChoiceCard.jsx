@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AudioButton from './AudioButton.jsx';
 
 // A tappable answer card. `variant` picks the size set from the artboard (math or word).
 export default function ChoiceCard({ label, variant, used, disabled, height, onChoose }) {
@@ -19,6 +20,7 @@ export function ChoiceRow({ choices, variant, isUsed, isDisabled, onChoose, gap,
   return (
     <div className="choice-row" style={{ gap, paddingTop }}>
       {choices.map((choice) => (
+        <div className="choice-with-audio" key={choice}>
         <ChoiceCard
           key={choice}
           label={choice}
@@ -28,6 +30,8 @@ export function ChoiceRow({ choices, variant, isUsed, isDisabled, onChoose, gap,
           height={cardHeight}
           onChoose={() => onChoose(choice)}
         />
+        <AudioButton text={String(choice)} size={40} label={`Listen to answer: ${choice}`} />
+        </div>
       ))}
     </div>
   );

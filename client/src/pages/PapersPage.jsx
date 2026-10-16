@@ -1,65 +1,34 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { papers } from '../data/papers.js';
 import AudioButton from '../components/AudioButton.jsx';
-import { Fish, SleepingCat } from '../components/art/Art.jsx';
-import logo from '../../../design/brand/cty-logo.webp';
-
-const SUBJECT_ART = {
-  english: () => (
-    <div className="subject-panel subject-panel--english">
-      <SleepingCat colour="orange" size={100} />
-      <SleepingCat colour="light" size={100} />
-      <SleepingCat colour="slate" size={100} />
-    </div>
-  ),
-  math: () => (
-    <div className="subject-panel subject-panel--math">
-      <div className="fish-group">
-        <Fish colour="orange" width={52} height={36} />
-        <Fish colour="orange" width={52} height={36} />
-        <Fish colour="orange" width={52} height={36} />
-      </div>
-      <div className="panel-plus" aria-hidden="true">+</div>
-      <div className="fish-group">
-        <Fish colour="blue" width={52} height={36} />
-        <Fish colour="blue" width={52} height={36} />
-      </div>
-    </div>
-  ),
-};
-
+import { Brand, FishBalance, FishTrail } from '../components/QuestionShell.jsx';
+import { CatAvatar, Icon } from '../components/AdventureArt.jsx';
+import AdventureDialog from '../components/AdventureDialog.jsx';
+import mathCat from '../assets/cat-world/math-cat.webp';
+import englishCat from '../assets/cat-world/english-cat.webp';
+const subjects = [
+  { id: 'math', title: 'Maths', subtitle: 'A little counting. A big adventure.', image: mathCat },
+  { id: 'english', title: 'English', subtitle: 'Wonderful words are waiting.', image: englishCat },
+];
 export default function PapersPage() {
   const navigate = useNavigate();
-
-  return (
-    <main className="canvas">
-      <header className="papers-header">
-        <img className="logo" src={logo} alt="Catch Them Young" />
-      </header>
-
-      <h1 className="papers-title">Papers</h1>
-      <p className="papers-subtitle">Pick one to start</p>
-
-      <div className="subject-cards">
-        {papers.map((paper) => {
-          const Art = SUBJECT_ART[paper.id];
-          return (
-            <div key={paper.id} className="subject-card-wrap">
-              <button type="button" className="subject-card" onClick={() => navigate(`/papers/${paper.id}`)}>
-                {Art && <Art />}
-                <span className="subject-name">{paper.title}</span>
-              </button>
-              <AudioButton
-                text={paper.title}
-                size={56}
-                lip={4}
-                label={`Listen: ${paper.title}`}
-                className="subject-audio"
-              />
-            </div>
-          );
-        })}
-      </div>
-    </main>
-  );
+  const [panel, setPanel] = useState(null);
+  return <main className="canvas home-scene">
+    <header className="home-header"><Brand /><div className="home-account"><FishBalance /><button className="profile-button" onClick={() => setPanel('Settings')} aria-label="Open settings"><CatAvatar size={62} /><Icon name="settings" size={18} /></button></div></header>
+    <section className="home-content" aria-labelledby="home-title">
+      <FishTrail home />
+      <div className="home-heading"><h1 id="home-title">Choose a mission</h1><div className="home-subtitle"><p>Pick one to begin.</p><AudioButton text="Choose a mission. Pick one to begin. Collect fish to feed your cat." size={40} label="Listen to the welcome" /></div></div>
+      <div className="subject-cards">{subjects.map((subject) => <article className={'subject-card-wrap subject-card-wrap--' + subject.id} key={subject.id}>
+        <button className="subject-card" onClick={() => navigate('/papers/' + subject.id)} aria-label={'Start ' + subject.title + ' Adventure'}>
+          <img className="subject-illustration" src={subject.image} alt="" />
+          <span className="subject-name">{subject.title}<br />Adventure</span><span className="subject-description">{subject.subtitle}</span>
+          <span className="subject-start">Start <Icon name="arrow" size={32} /></span>
+        </button>
+        <AudioButton className="subject-audio" text={subject.title + ' Adventure. ' + subject.subtitle + ' Press start to begin.'} size={44} label={'Listen to ' + subject.title + ' Adventure'} />
+      </article>)}</div>
+      <p className="home-note"><span aria-hidden="true">✧</span> Little steps. Lovely discoveries.</p>
+    </section>
+    <nav className="room-nav" aria-label="Your cat's corner">{[['Shop', 'shop'], ['Wardrobe', 'wardrobe'], ['My Badges', 'badge']].map(([title, icon]) => <button key={title} onClick={() => setPanel(title)}><Icon name={icon} size={30} /><span>{title}</span></button>)}</nav>
+    {panel && <AdventureDialog panel={panel} onClose={() => setPanel(null)} />}
+  </main>;
 }

@@ -87,6 +87,7 @@ export default function SentenceBuilder({ question, onComplete }) {
           const colour = question.slots.find((s) => s.key === tile.slot).colour;
           const used = placed[tile.slot] === tile.text;
           return (
+            <div className="tile-with-audio" key={tile.text}>
             <button
               key={tile.text}
               type="button"
@@ -97,6 +98,8 @@ export default function SentenceBuilder({ question, onComplete }) {
             >
               {tile.text}
             </button>
+            <AudioButton text={tile.text} size={36} label={`Listen to answer: ${tile.text}`} />
+            </div>
           );
         })}
       </div>

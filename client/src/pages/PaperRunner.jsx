@@ -8,6 +8,7 @@ import TakeAwayWithPictures from '../components/questions/TakeAwayWithPictures.j
 import NumberTrack from '../components/questions/NumberTrack.jsx';
 import FillTheGap from '../components/questions/FillTheGap.jsx';
 import SentenceBuilder from '../components/questions/SentenceBuilder.jsx';
+import { useAdventure } from '../lib/adventure.jsx';
 
 const QUESTION_TYPES = {
   'add-with-pictures': AddWithPictures,
@@ -28,8 +29,14 @@ export default function PaperRunner() {
   // In memory only (PDPA). Kept for the future star feature; never shown to the child.
   const [answers, setAnswers] = useState([]);
   const timer = useRef();
+  const completedQuestion = useRef(null);
+  const { earnFish, finish } = useAdventure();
 
-  useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(() => () => { clearTimeout(timer.current); stopSpeaking(); }, []);
+  useEffect(() => {
+    document.querySelector('.prompt')?.focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  }, [index]);
 
   if (!paper) return <Navigate to="/papers" replace />;
 
@@ -39,25 +46,33 @@ export default function PaperRunner() {
 
   // Each question calls this once, when every slot it has is filled.
   function handleComplete({ chosen, correct }) {
-    if (answers.length > index) return;
+    if (completedQuestion.current === question.id) return;
+    completedQuestion.current = question.id;
     stopSpeaking();
     const next = [...answers, { questionId: question.id, chosen, correct }];
     setAnswers(next);
+    earnFish();
     timer.current = setTimeout(() => {
       if (index + 1 < paper.questions.length) setIndex(index + 1);
-      else navigate(`/papers/${paper.id}/done`, { replace: true, state: { answers: next } });
+      else {
+        finish(paper.id);
+        navigate(`/papers/${paper.id}/done`, { replace: true, state: { earned: next.length } });
+      }
     }, ADVANCE_DELAY_MS);
   }
 
   return (
-    <main className="canvas">
+    <main className={`canvas question-scene question-scene--${question.type}`}>
       <ShellHeader
         progress={answers.length / paper.questions.length}
-        // One star per answered question, right or wrong, so the count never reveals correctness.
-        stars={answers.length}
+        // Every completed question earns a fish, regardless of correctness.
+        steps={paper.questions.length}
         onClose={() => navigate('/papers')}
       />
-      {Question && <Question key={question.id} question={question} onComplete={handleComplete} />}
+      <section className="question-content" aria-label={`${paper.title} adventure, question ${index + 1} of ${paper.questions.length}`}>
+        <p className="question-kicker">{paper.id === 'math' ? 'Maths' : 'English'} Adventure <span aria-hidden="true">·</span> {index + 1} of {paper.questions.length}</p>
+        {Question && <Question key={question.id} question={question} onComplete={handleComplete} />}
+      </section>
     </main>
   );
 }

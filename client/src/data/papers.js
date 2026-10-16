@@ -34,10 +34,10 @@ export const papers = [
         prompt: 'Tell what Mochi does',
         picture: 'mochi-on-sofa',
         pictureLabel: 'Mochi is sleeping on the sofa',
-        given: { label: 'WHO?', text: 'The cat' },
+        given: { label: 'Who?', text: 'The cat' },
         slots: [
-          { key: 'doesWhat', label: 'DOES WHAT?', colour: 'mochi' },
-          { key: 'where', label: 'WHERE?', colour: 'mint' },
+          { key: 'doesWhat', label: 'Does what?', colour: 'mochi' },
+          { key: 'where', label: 'Where?', colour: 'mint' },
         ],
         tiles: [
           { text: 'sleeps', slot: 'doesWhat' },
