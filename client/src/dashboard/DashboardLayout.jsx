@@ -38,7 +38,6 @@ export default function DashboardLayout() {
           <img src={logo} alt="Catch Them Young" />
         </div>
         <div className="profile">
-          <div className="ring"><span aria-hidden="true">🐱</span></div>
           <p>Hi {session.id}!</p>
           <small>Welcome back</small>
         </div>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { currentSession, logout } from './accounts.js';
 
 // Who is signed in: null, or { role: 'student' | 'teacher', id }.
@@ -32,6 +32,16 @@ export function SessionProvider({ children }) {
 
 export function useSession() {
   return useContext(SessionContext);
+}
+
+// Signs out and goes to the login page.
+export function useLogOut() {
+  const { signOut } = useSession();
+  const navigate = useNavigate();
+  return async () => {
+    await signOut();
+    navigate('/login', { replace: true });
+  };
 }
 
 export function homePathFor(role) {

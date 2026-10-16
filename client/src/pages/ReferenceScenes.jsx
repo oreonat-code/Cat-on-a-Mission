@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { cats, outfits, shirts, useAdventure } from '../lib/adventure.jsx';
+import { useLogOut, useSession } from '../auth/session.jsx';
 import { ShirtArt, StudentAvatar } from '../components/AdventureArt.jsx';
 import CatCharacter from '../components/CatCharacter.jsx';
 import shopImage from '../assets/cat-world/shop-reference.png';
@@ -26,10 +27,10 @@ export function useSceneBack() { const navigate = useNavigate(); return (event) 
 export function Stage({ image, kind, children }) { return <main className="reference-page"><div className={`reference-stage reference-stage--${kind}`} style={{ backgroundImage: `url(${image})` }}>{children}</div></main>; }
 export function SceneTop({ back, fish, fishBox, shirt, avatar = true }) {
   const [profileOpen, setProfileOpen] = useState(false);
-  const [signedOut, setSignedOut] = useState(false);
+  const { session } = useSession();
+  const logOut = useLogOut();
   return <><Hit label="Back to Home" box={[35, 25, 245, 100]} onClick={back} /><span className="reference-fish reference-fish--scene" style={{ left: `${fishBox[0] / 1484 * 100}%`, top: `${fishBox[1] / 1060 * 100}%`, width: `${fishBox[2] / 1484 * 100}%` }}>{fish}</span>
-    {avatar && <>{shirt !== 'yellow' && <span className="reference-avatar reference-avatar--scene"><StudentAvatar size={100} /></span>}<Hit label="Open profile" box={[1290, 25, 165, 165]} onClick={() => setProfileOpen(!profileOpen)} />{profileOpen && <div className="reference-profile reference-profile--scene"><p>Student ID: S001</p><button onClick={() => { setProfileOpen(false); setSignedOut(true); }}>Log out</button></div>}</>}
-    {signedOut && <div className="reference-signed-out"><p>Logged out</p><button onClick={() => setSignedOut(false)}>Continue as Student S001</button></div>}
+    {avatar && <>{shirt !== 'yellow' && <span className="reference-avatar reference-avatar--scene"><StudentAvatar size={100} /></span>}<Hit label="Open profile" box={[1290, 25, 165, 165]} onClick={() => setProfileOpen(!profileOpen)} />{profileOpen && <div className="reference-profile reference-profile--scene"><p>Student ID: {session.id}</p><button onClick={logOut}>Log out</button></div>}</>}
   </>;
 }
 
