@@ -21,7 +21,16 @@
   --pc-star: #ffc93c;
   --pc-star-edge: #e0a400;
 
-  --pc-orange: #f29b4b;        /* Mochi, orange fish */
+  --pc-orange: #f29b4b;        /* Mochi, orange fish, "does what" border */
   --pc-orange-light: #e8b07a;
   --pc-slate: #5b6b80;
+
+  /* Sentence builder (artboard TQ-0) */
+  --pc-mochi-wash: #fff4e6;    /* "does what" slot */
+  --pc-mochi-tint: #fbd3ae;    /* lip under orange tiles */
+  --pc-text-mochi: #c26a1a;    /* "DOES WHAT?" label */
+  --pc-mint: #3dbba0;          /* "where" border */
+  --pc-mint-wash: #e7f8f3;     /* "where" slot */
+  --pc-mint-tint: #bfe6d8;     /* lip under green tiles */
+  --pc-text-mint: #1e8a72;     /* "WHERE?" label */
 }

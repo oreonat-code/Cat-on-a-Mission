@@ -4,14 +4,20 @@ import { getPaper } from '../data/papers.js';
 import { stopSpeaking } from '../lib/speak.js';
 import { ShellHeader } from '../components/QuestionShell.jsx';
 import AddWithPictures from '../components/questions/AddWithPictures.jsx';
+import TakeAwayWithPictures from '../components/questions/TakeAwayWithPictures.jsx';
+import NumberTrack from '../components/questions/NumberTrack.jsx';
 import FillTheGap from '../components/questions/FillTheGap.jsx';
+import SentenceBuilder from '../components/questions/SentenceBuilder.jsx';
 
 const QUESTION_TYPES = {
   'add-with-pictures': AddWithPictures,
+  'take-away-with-pictures': TakeAwayWithPictures,
+  'number-track': NumberTrack,
   'fill-the-gap': FillTheGap,
+  'sentence-builder': SentenceBuilder,
 };
 
-// Pause after a tap so the child sees their answer in the slot before moving on.
+// Pause after the last tap so the child sees their answer before moving on.
 const ADVANCE_DELAY_MS = 900;
 
 export default function PaperRunner() {
@@ -28,14 +34,14 @@ export default function PaperRunner() {
   if (!paper) return <Navigate to="/papers" replace />;
 
   const question = paper.questions[index];
-  const chosen = answers[index]?.chosen;
   const Question = QUESTION_TYPES[question.type];
   if (!Question && import.meta.env.DEV) console.warn(`Unknown question type: ${question.type}`);
 
-  function handleChoose(value) {
-    if (chosen !== undefined) return;
+  // Each question calls this once, when every slot it has is filled.
+  function handleComplete({ chosen, correct }) {
+    if (answers.length > index) return;
     stopSpeaking();
-    const next = [...answers, { questionId: question.id, chosen: value, correct: value === question.answer }];
+    const next = [...answers, { questionId: question.id, chosen, correct }];
     setAnswers(next);
     timer.current = setTimeout(() => {
       if (index + 1 < paper.questions.length) setIndex(index + 1);
@@ -51,7 +57,7 @@ export default function PaperRunner() {
         stars={answers.length}
         onClose={() => navigate('/papers')}
       />
-      {Question && <Question key={question.id} question={question} chosen={chosen} onChoose={handleChoose} />}
+      {Question && <Question key={question.id} question={question} onComplete={handleComplete} />}
     </main>
   );
 }
