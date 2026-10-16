@@ -1,6 +1,11 @@
 /*
- * Pip's Pool — UI colour tokens ("tidal" palette)
- * Plain CSS custom properties. Import once at the root of the app.
+ * Catch Them Young (CTY) learning app — UI colour tokens
+ *
+ * The brand colours come straight from the CTY logo (design/brand/cty-logo.webp):
+ *   navy   #1f215b
+ *   yellow #fcef1d
+ * Everything else is built around them. Mochi (the cat) keeps its orange, and
+ * sea-foam and sand stay as calm supporting colours.
  *
  * Contrast figures are WCAG 2.x ratios against the surface named in the comment.
  * Rule of thumb: >= 4.5 for text, >= 3 for large text and for borders that
@@ -8,21 +13,25 @@
  */
 
 :root {
-  /* ---- Core brand ------------------------------------------------ */
-  --color-ink: #12263f;            /* all body text. 15.3 on white */
-  --color-cobalt: #2557d6;         /* primary actions, progress, "tens". 6.2 on white; white on it 6.2 */
-  --color-cobalt-deep: #17399a;    /* pressed state, button shadow, labels on tint. 6.5 on cobalt-tint */
-  --color-cobalt-tint: #bfd0f5;    /* soft fills, hundreds block, number-line hops */
-  --color-cobalt-wash: #f3f7ff;    /* selected card background, empty answer slot */
+  /* ---- CTY brand (sampled from the logo) --------------------------- */
+  --color-cty-navy: #1f215b;       /* logo navy. 14.7 on white */
+  --color-cty-yellow: #fcef1d;     /* logo yellow. navy on it 12.3 */
 
-  --color-seafoam: #ddf5ee;        /* calm panels behind pictures. ink on it 13.4 */
-  --color-sand: #ffe7c2;           /* gentle "try again" panel (never red). ink on it 12.7 */
-  --color-cream: #fff3cc;          /* highlight panels, star pill background */
+  /* ---- Core ------------------------------------------------------- */
+  --color-ink: var(--color-cty-navy);   /* all body text. 14.7 on white */
+  --color-cobalt: #3440b8;         /* primary actions, progress, "tens". white on it 8.2 */
+  --color-cobalt-deep: var(--color-cty-navy);  /* pressed state, button shadow, headers */
+  --color-cobalt-tint: #c9cef2;    /* soft fills, hundreds block, number-line hops. ink on it 9.5 */
+  --color-cobalt-wash: #f2f3fd;    /* selected card background, empty answer slot */
+
+  --color-seafoam: #ddf5ee;        /* calm panels behind pictures. ink on it 12.9 */
+  --color-sand: #ffe7c2;           /* gentle "try again" panel (never red). ink on it 12.2 */
+  --color-cream: #fff9c4;          /* yellow-tinted highlight panels. ink on it 13.7 */
 
   /* ---- Reward + object colours (fills and borders, NOT text) ------ */
-  --color-star: #ffc93c;           /* stars, "ones". ink on it 9.9 */
-  --color-star-edge: #e0a400;      /* outline for yellow shapes */
-  --color-mochi: #f29b4b;          /* the cat, "added" items. ink on it 7.0 */
+  --color-star: var(--color-cty-yellow);   /* stars, "ones". ink on it 12.3 */
+  --color-star-edge: #cdbe00;      /* outline for yellow shapes */
+  --color-mochi: #f29b4b;          /* the cat, "added" items. ink on it 6.7 */
   --color-mochi-tint: #fbd3ae;     /* added-hundreds block, shadow under orange tiles */
   --color-mochi-wash: #fff4e6;     /* "does what" slot background */
   --color-mint: #3dbba0;           /* "where" slot border. border only, 2.4 on white */
@@ -30,17 +39,18 @@
   --color-mint-tint: #bfe6d8;      /* shadow under mint tiles, room floor */
 
   /* ---- Text-safe variants (use these when a hue must be text) ----- */
-  --color-text-muted: #5b6b80;     /* captions. 5.4 on white */
+  --color-text-muted: #575b7c;     /* captions. 6.6 on white */
   --color-text-mochi: #a8530b;     /* orange as text. 5.4 on white, 5.0 on mochi-wash */
   --color-text-mint: #17745f;      /* teal as text. 5.7 on white, 5.2 on mint-wash */
-  --color-text-star: #7a5a00;      /* yellow as text. 5.8 on cream */
-  --color-text-on-fill: #ffffff;   /* only on cobalt or cobalt-deep. never on orange, yellow or mint */
+  --color-text-star: #6b5e00;      /* yellow as text. 6.5 on white, 6.1 on cream */
+  --color-text-on-fill: #ffffff;   /* only on cobalt or navy. never on orange, yellow or mint */
+  --color-text-on-navy-accent: var(--color-cty-yellow); /* yellow text is allowed on navy only. 12.3 */
 
   /* ---- Surfaces and lines ---------------------------------------- */
   --color-surface: #ffffff;
-  --color-surface-quiet: #eef1f6;  /* close button, locked item, progress track */
-  --color-line: #e3e8ef;           /* decorative divider only. 1.2 on white */
-  --color-line-strong: #7c8a9e;    /* border that marks a tap target. 3.5 on white */
+  --color-surface-quiet: #eeeff6;  /* close button, locked item, progress track */
+  --color-line: #e3e5ef;           /* decorative divider only. 1.2 on white */
+  --color-line-strong: #7a7fa3;    /* border that marks a tap target. 3.9 on white, 3.7 on comfort cream */
 
   /* ---- Feedback (no red anywhere) --------------------------------- */
   --color-feedback-correct: var(--color-seafoam);
@@ -49,7 +59,8 @@
   --color-feedback-retry-edge: #f2b866;
 
   /* ---- Maths place value: same colour means the same thing on
-          every picture (tens board and the 1000 blocks) ------------- */
+          every picture (tens board and the 1000 blocks).
+          Tens vs added is 3.7 contrast; still add a shape or outline cue. */
   --color-place-hundreds: var(--color-cobalt-tint);
   --color-place-tens: var(--color-cobalt);
   --color-place-ones: var(--color-star);
@@ -59,17 +70,16 @@
 /*
  * Optional reading-comfort theme. Switch on with <html data-theme="comfort">.
  * Some dyslexic readers find pure white glaring; this is a soft cream ground.
- * Ink stays the same, so text keeps 14.4 contrast.
+ * Ink stays the same, so text keeps 14+ contrast.
  */
 :root[data-theme="comfort"] {
   --color-surface: #fff8e7;
-  --color-line-strong: #6f7d92;    /* keeps 3.3+ on the cream ground */
 }
 
-/* Respect the OS setting for people who need less brightness. */
+/* Respect the OS setting for people who need more contrast. */
 @media (prefers-contrast: more) {
   :root {
-    --color-text-muted: #3d4b5e;
-    --color-line: #7c8a9e;
+    --color-text-muted: #3d4060;
+    --color-line: #7a7fa3;
   }
 }

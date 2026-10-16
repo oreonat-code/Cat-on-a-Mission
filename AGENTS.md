@@ -4,9 +4,20 @@ Instructions for AI coding agents (and humans) working in this repo.
 
 ## Project
 
-Early-learning web app for P1–P2 children: English (vocab, sentence formation, core grammar, simple
-comprehension) and maths (addition and subtraction within 100, extending to 1000). Stack: React (Vite) client,
-Express server, Postgres on Supabase. See `README.md` for setup.
+Early-learning web app for Catch Them Young (CTY), for P1–P2 children: English (vocab, sentence formation, core
+grammar, simple comprehension) and maths (addition and subtraction within 100, extending to 1000). Stack: React
+(Vite) client, Express server, Postgres on Supabase. See `README.md` for setup.
+
+## Brand: the CTY logo
+
+The logo is at [`design/brand/cty-logo.webp`](design/brand/cty-logo.webp). Navy `#1f215b` and yellow `#fcef1d`
+are the brand colours, and the whole palette is built around them.
+
+- Show the logo in the app header and on the sign-in or landing screen. Do not recolour, stretch, crop or add
+  effects to it.
+- The logo image has an off-white background box. Place it on a white or very light surface, or ask for a
+  transparent version before putting it on a coloured background.
+- If CTY has brand guidelines (clear space, minimum size), follow them over anything written here.
 
 ## Colours: use the palette in `design/colors/`
 
@@ -23,30 +34,33 @@ new colours or hardcode hex values in components.
 
 These are requirements, not preferences.
 
-- **Text is always `--color-ink`.** Captions use `--color-text-muted`. Never use pure black text.
-- **Bright hues are fills and borders, never text.** Orange, yellow and mint fail as text on white. If a hue must
-  be text, use `--color-text-mochi`, `--color-text-mint` or `--color-text-star`.
-- **White text goes only on cobalt** (`--color-cobalt`, `--color-cobalt-deep`). Never on orange, yellow or mint.
+- **Text is always `--color-ink`** (the logo navy). Captions use `--color-text-muted`. Never use pure black text.
+- **Bright hues are fills and borders, never text.** Yellow, orange and mint fail as text on white. If a hue must
+  be text, use `--color-text-star`, `--color-text-mochi` or `--color-text-mint`.
+- **White text goes only on cobalt or navy** (`--color-cobalt`, `--color-cobalt-deep`). Never on orange, yellow
+  or mint.
+- **Yellow text is allowed only on navy** (`--color-text-on-navy-accent`). This is the logo's own pairing.
 - **Never use red.** Wrong answers use the sand "try again" style (`--color-feedback-retry`). A child must not be
   shown a failure state.
 - **Colour never carries meaning alone.** Pair it with a text label, shape, outline or position. Place-value
   colours (tens, ones, added) need a shape or outline difference. Sentence-slot colours (who, does what, where)
   need a text label.
-- **A border that marks a tap target uses `--color-line-strong`** (3.5 contrast). `--color-line` is decorative only.
+- **A border that marks a tap target uses `--color-line-strong`** (3.9 contrast). `--color-line` is decorative
+  only.
 - **Place-value colours are fixed:** hundreds `--color-place-hundreds`, tens `--color-place-tens`, ones
   `--color-place-ones`, added `--color-place-added`. Use the same colours on the 0–100 board and the 0–1000
   blocks.
 - **Offer the comfort theme** (`<html data-theme="comfort">`) as a user setting. Do not make it the default.
-- Keep yellow (`--color-star`) for stars and "ones" only, so rewards stay meaningful.
+- Keep yellow (`--color-star`) for stars, "ones" and logo-style highlights, so rewards stay meaningful.
 
 ### Combinations that fail. Do not use them
 
 | Combination | Contrast | Use instead |
 |---|---|---|
-| White text on orange | 2.2 | `--color-ink` on `--color-mochi` (7.0) |
+| White text on orange | 2.2 | `--color-ink` on `--color-mochi` (6.7) |
 | Orange text on white | 2.2 | `--color-text-mochi` (5.4) |
-| Cobalt vs orange as the only difference | 2.8 | Add a shape or outline difference |
-| `--color-line` as the only tap-target border | 1.2 | `--color-line-strong` (3.5) |
+| Yellow text on white | 1.2 | `--color-text-star` (6.5), or yellow on navy |
+| `--color-line` as the only tap-target border | 1.2 | `--color-line-strong` (3.9) |
 
 The contrast figures were calculated by hand with the WCAG formula. Re-check them with a proper tool before
 shipping.
