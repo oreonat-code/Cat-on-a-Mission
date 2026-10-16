@@ -8,13 +8,13 @@ import { choicesText, joinSpeech } from '../../lib/speech-text.js';
 export function buildSpeech(question, chosen) {
   return joinSpeech(
     question.prompt,
-    'Count the fish still here. Fish with dashed outlines and arrows swam away.',
+    'Count the fish still here. Fish with dashed outlines swam away.',
     equationText(question.start, '−', question.takeAway, chosen),
     choicesText(question.choices)
   );
 }
 
-// Departed fish keep dashed silhouettes and arrows so colour is never the only cue.
+// Departed fish keep dashed silhouettes, set apart by a divider, so colour is never the only cue.
 export default function TakeAwayWithPictures({ question, onComplete }) {
   const { start, takeAway } = question;
   const left = start - takeAway;
@@ -34,7 +34,7 @@ export default function TakeAwayWithPictures({ question, onComplete }) {
         aria-label={`${start} fish. ${takeAway} swim away.`}
       >
         <div className="fish-scene-group fish-scene-group--remaining"><FishSet count={left} /></div>
-        <div className="swim-away-divider" aria-hidden="true">→</div>
+        <div className="swim-away-divider" aria-hidden="true" />
         <div className="fish-scene-group fish-scene-group--away"><FishSet count={takeAway} departed /></div>
       </div>
 

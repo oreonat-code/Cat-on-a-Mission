@@ -25,12 +25,13 @@
 .question-scene .panel-plus { border-radius: 50%; background: var(--color-surface); width: 50px; height: 50px; display: grid; place-items: center; flex-shrink: 0; font-size: 40px; line-height: 1; }
 .fish-scene-group--remaining { flex: 5; }
 .fish-scene-group--away { flex: 3; }
-.fish-scene-group--remaining .illustrated-fish-set { max-width: 320px; }
-.picture-panel--takeaway .story-fish { width: 83px; height: 65px; }
+.fish-scene-group--remaining .illustrated-fish-set { max-width: none; }
+.question-scene .picture-panel--takeaway { min-height: 190px; gap: 22px; }
+.picture-panel--takeaway .story-fish { width: 66px; height: 52px; }
+.picture-panel--takeaway .illustrated-fish-set { gap: 12px; }
 .picture-panel--takeaway .fish-scene-group { gap: 10px; }
 .story-fish--departed { background: none; }
-.fish-away-arrow { position: absolute; top: 50%; left: 50%; transform: translate(calc(-50% - 8px), -50%); } /* inside the dashed body, clear of the outline */
-.swim-away-divider { font-size: 40px; font-weight: 900; flex-shrink: 0; }
+.swim-away-divider { flex-shrink: 0; align-self: center; width: 6px; height: 96px; border-radius: 3px; background: var(--color-cobalt-tint); }
 
 /* One cat and three cats use identical single-animal assets so quantity is the only difference. */
 .question-scene .picture-cards { max-width: 780px; margin: auto; gap: 20px; }
@@ -88,7 +89,7 @@
   .question-scene .story-cat { height: 125px; }
   .question-scene .story-scene-image { height: 170px; }
   .question-scene .picture-panel--builder { width: min(100%, 540px); }
-  .question-scene .picture-panel--takeaway .story-fish { width: 78px; height: 54px; }
+  .question-scene .picture-panel--takeaway .story-fish { width: 62px; height: 48px; }
   .question-scene .builder-slots { padding-top: 14px; }
   .question-scene .builder-slot { min-height: 64px; font-size: 25px; }
   .question-scene .tile-row { padding-top: 12px; }
