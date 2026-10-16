@@ -7,6 +7,7 @@ import '../../design/colors/tokens.css';
 import './styles/paper-colors.css';
 import './styles/base.css';
 import './styles/components.css';
+import './styles/question-theme.css';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

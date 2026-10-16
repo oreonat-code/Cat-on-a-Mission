@@ -2,18 +2,19 @@ import AudioButton from '../AudioButton.jsx';
 import Equation, { equationText } from '../Equation.jsx';
 import { ChoiceRow, useSingleChoice } from '../ChoiceCard.jsx';
 import { TitleRow } from '../QuestionShell.jsx';
-import { Fish } from '../art/Art.jsx';
+import { FishSet } from '../art/QuestionArt.jsx';
 import { choicesText, joinSpeech } from '../../lib/speech-text.js';
 
 export function buildSpeech(question, chosen) {
   return joinSpeech(
     question.prompt,
+    'Count the fish still here. Fish with dashed outlines and arrows swam away.',
     equationText(question.start, '−', question.takeAway, chosen),
     choicesText(question.choices)
   );
 }
 
-// Artboard J2-0 · Math: take away. Fish that stay are solid; fish that left are dashed outlines.
+// Departed fish keep dashed silhouettes and arrows so colour is never the only cue.
 export default function TakeAwayWithPictures({ question, onComplete }) {
   const { start, takeAway } = question;
   const left = start - takeAway;
@@ -29,16 +30,12 @@ export default function TakeAwayWithPictures({ question, onComplete }) {
 
       <div
         className="picture-panel picture-panel--takeaway"
-        role="img"
-        aria-label={`${start} fish. ${takeAway} swim away. ${left} are left.`}
+        role="group"
+        aria-label={`${start} fish. ${takeAway} swim away.`}
       >
-        {Array.from({ length: left }, (_, i) => (
-          <Fish key={`stay-${i}`} colour="orange" />
-        ))}
-        <div className="takeaway-divider" />
-        {Array.from({ length: takeAway }, (_, i) => (
-          <Fish key={`gone-${i}`} outline />
-        ))}
+        <div className="fish-scene-group fish-scene-group--remaining"><FishSet count={left} /></div>
+        <div className="swim-away-divider" aria-hidden="true">→</div>
+        <div className="fish-scene-group fish-scene-group--away"><FishSet count={takeAway} departed /></div>
       </div>
 
       <Equation left={start} op="−" right={takeAway} chosen={chosen} paddingTop={32} />

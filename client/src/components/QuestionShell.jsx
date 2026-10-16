@@ -7,11 +7,11 @@ export function FishTrail({ progress = 0, steps = 3, home = false }) {
   return <div className={'fish-trail ' + (home ? 'fish-trail--home' : '')}>
     {home && <p>Collect fish to feed your cat!</p>}
     <div className="trail-path" role="progressbar" aria-label={home ? 'Choose an adventure to collect fish' : 'Adventure progress'} aria-valuemin={0} aria-valuemax={steps} aria-valuenow={filled}>
-      <span className="trail-start" aria-hidden="true">☺</span>
+      <span className="trail-start" aria-hidden="true"><CatAvatar size={56} /></span>
       <span className="trail-steps">{Array.from({ length: steps }, (_, i) => <span key={i} className={'trail-stop ' + (i < filled ? 'is-complete' : '') + (i === filled ? ' is-current' : '')}>
         {i <= filled && <Fish width={30} height={23} />}
       </span>)}</span>
-      <CatAvatar size={56} /><Bowl />
+      <Bowl />
     </div>
   </div>;
 }

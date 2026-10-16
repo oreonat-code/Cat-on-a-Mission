@@ -2,15 +2,15 @@ import AudioButton from '../AudioButton.jsx';
 import Equation, { equationText } from '../Equation.jsx';
 import { ChoiceRow, useSingleChoice } from '../ChoiceCard.jsx';
 import { TitleRow } from '../QuestionShell.jsx';
-import { Fish } from '../art/Art.jsx';
+import { FishSet } from '../art/QuestionArt.jsx';
 import { choicesText, joinSpeech } from '../../lib/speech-text.js';
 
 export function buildSpeech(question, chosen) {
   const { left, right } = question;
-  return joinSpeech(question.prompt, equationText(left.count, '+', right.count, chosen), choicesText(question.choices));
+  return joinSpeech(question.prompt, `${left.count} fish plus ${right.count} fish.`, equationText(left.count, '+', right.count, chosen), choicesText(question.choices));
 }
 
-// Artboard 6 · Math: add with pictures.
+// Illustrated groups are rendered from the question counts, keeping every fish countable.
 export default function AddWithPictures({ question, onComplete }) {
   const { left, right } = question;
   const { chosen, choose, isUsed, isDisabled } = useSingleChoice(question, onComplete);
@@ -25,12 +25,12 @@ export default function AddWithPictures({ question, onComplete }) {
 
       <div
         className="picture-panel picture-panel--math"
-        role="img"
-        aria-label={`${left.count} ${left.colour} fish and ${right.count} ${right.colour} fish`}
+        role="group"
+        aria-label="Two groups of fish"
       >
-        <FishGroup {...left} />
+        <div className="fish-scene-group"><FishSet {...left} /></div>
         <div className="panel-plus" aria-hidden="true">+</div>
-        <FishGroup {...right} />
+        <div className="fish-scene-group"><FishSet {...right} /></div>
       </div>
 
       <Equation left={left.count} op="+" right={right.count} chosen={chosen} paddingTop={28} />
@@ -45,15 +45,5 @@ export default function AddWithPictures({ question, onComplete }) {
         paddingTop={36}
       />
     </>
-  );
-}
-
-function FishGroup({ count, colour }) {
-  return (
-    <div className="fish-group">
-      {Array.from({ length: count }, (_, i) => (
-        <Fish key={i} colour={colour} />
-      ))}
-    </div>
   );
 }

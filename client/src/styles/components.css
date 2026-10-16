@@ -15,7 +15,7 @@
 .fish-trail--home { width: 505px; max-width: 100%; margin: 0 auto; padding: 14px 28px 12px; }
 .fish-trail p { margin: 0 0 4px; font-size: 20px; font-weight: 900; }
 .trail-path { display: flex; align-items: center; justify-content: center; gap: 8px; }
-.trail-start { font-size: 44px; width: 54px; line-height: 54px; border-radius: 50%; background: var(--color-mochi-tint); outline: 3px solid var(--color-cobalt-tint); }
+.trail-start { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: var(--color-mochi-wash); outline: 3px solid var(--color-cobalt-tint); }
 .trail-steps { position: relative; display: flex; flex: 1; justify-content: space-evenly; gap: 16px; align-items: center; }
 .trail-steps::before { content: ''; height: 6px; background: var(--color-line-strong); position: absolute; left: -10px; right: -10px; z-index: 0; border-radius: 6px; }
 .trail-stop { display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; width: 33px; height: 33px; border-radius: 50%; background: var(--color-surface-quiet); border: 3px solid var(--color-surface); outline: 1px solid var(--color-line-strong); }

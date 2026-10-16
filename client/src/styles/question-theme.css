@@ -1,0 +1,105 @@
+/* Question scenes use painted cats and the original cartoon fish. */
+.question-scene .picture-panel--math,
+.question-scene .picture-panel--takeaway,
+.question-scene .picture-panel--builder,
+.question-scene .picture-panel--track {
+  width: min(100%, 780px);
+  min-height: 255px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  box-shadow: 0 4px 0 var(--color-mochi-tint);
+}
+.question-scene .picture-panel--math,
+.question-scene .picture-panel--takeaway {
+  padding: 18px 24px;
+  gap: 14px;
+  background:
+    radial-gradient(ellipse at 22% 5%, var(--color-surface) 0, transparent 50%),
+    linear-gradient(var(--color-mint-wash), var(--color-seafoam));
+}
+.fish-scene-group { display: flex; flex: 1; min-width: 0; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.illustrated-fish-set { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px; width: 100%; }
+.story-fish { position: relative; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 92px; height: 95px; }
+.story-fish > .art { display: block; width: 100%; height: 100%; }
+.question-scene .panel-plus { border-radius: 50%; background: var(--color-surface); width: 50px; height: 50px; display: grid; place-items: center; flex-shrink: 0; font-size: 40px; line-height: 1; }
+.fish-scene-group--remaining { flex: 5; }
+.fish-scene-group--away { flex: 3; }
+.fish-scene-group--remaining .illustrated-fish-set { max-width: 320px; }
+.picture-panel--takeaway .story-fish { width: 83px; height: 65px; }
+.picture-panel--takeaway .fish-scene-group { gap: 10px; }
+.story-fish--departed { background: none; }
+.fish-away-arrow { position: absolute; right: 3px; top: 2px; }
+.swim-away-divider { font-size: 40px; font-weight: 900; flex-shrink: 0; }
+
+/* One cat and three cats use identical single-animal assets so quantity is the only difference. */
+.question-scene .picture-cards { max-width: 780px; margin: auto; gap: 20px; }
+.question-scene .picture-card { min-height: 255px; padding: 16px 18px; gap: 12px; box-shadow: 0 4px 0 var(--color-mochi-tint); }
+.question-scene .picture-card--wash { flex: 1; background: linear-gradient(var(--color-mochi-wash), var(--color-sand)); }
+.question-scene .picture-card--seafoam { flex: 2; background: linear-gradient(var(--color-mint-wash), var(--color-seafoam)); }
+.counting-cats { display: flex; align-items: flex-end; justify-content: center; width: 100%; gap: 4px; }
+.story-cat { display: block; width: 130px; height: 160px; object-fit: contain; }
+.picture-card-caption { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.picture-card-caption .audio-button { margin-bottom: 4px; }
+.question-scene .picture-panel--builder { width: min(100%, 660px); min-height: 0; padding: 0; }
+.story-scene-image { display: block; width: 100%; height: 210px; object-fit: contain; }
+
+/* Label and shape distinguish sentence roles as well as their token colours. */
+.question-scene .builder-slots { max-width: 860px; margin: auto; }
+.question-scene .builder-slot { box-shadow: inset 0 -5px 0 var(--color-surface); }
+.question-scene .builder-slot--given { background: var(--color-cobalt-wash); border-color: var(--color-line-strong); }
+.question-scene .tile-row { max-width: 860px; margin: auto; flex-wrap: nowrap; gap: 20px; padding-top: 18px; }
+.tile-group { flex: 1; min-width: 0; margin: 0; border: 2px solid var(--color-line-strong); border-radius: 24px; padding: 8px 14px 12px; background: var(--color-mochi-wash); }
+.tile-group--mint { background: var(--color-mint-wash); border-style: dotted; }
+.tile-group legend { margin: auto; padding: 0 10px; font-size: 17px; font-weight: 800; }
+.tile-group-choices { display: flex; align-items: start; justify-content: center; gap: 14px; }
+.question-scene .tile-group .tile { min-width: 120px; min-height: 62px; padding: 8px 16px; font-size: 25px; background: var(--color-surface); }
+.tile-group .tile-with-audio { min-width: 0; }
+
+/* One CSS grid drives both the stepping stones and the arcs joining their centres. */
+.question-scene .picture-panel--track { position: relative; padding: 10px 22px 14px; background: linear-gradient(var(--color-mint-wash), var(--color-seafoam)); }
+.number-path { display: grid; grid-template-columns: repeat(var(--track-cells), minmax(0, 1fr)); gap: 14px; width: 100%; margin: 0; padding: 0; list-style: none; }
+.number-path-step { position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 126px; gap: 10px; }
+.number-hop { position: absolute; left: calc(-50% - 7px); top: 34px; width: calc(100% + 14px); height: 82px; text-align: center; }
+.number-hop span { position: relative; display: inline-block; padding: 1px 10px; border-radius: 20px; background: var(--color-surface); font-size: 20px; font-weight: 900; z-index: 1; }
+.number-hop svg { position: absolute; inset: 12px 0 0; width: 100%; height: 100%; overflow: visible; }
+.number-hop path { fill: none; stroke: var(--color-cobalt); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 8; vector-effect: non-scaling-stroke; }
+.number-hop--solid path { stroke-dasharray: none; }
+.question-scene .number-path .track-cell { width: 100%; max-width: 125px; height: 76px; border-radius: 25px 25px 18px 18px; font-size: 39px; }
+.question-scene .number-path .track-cell--filled { color: var(--color-ink); background: var(--color-sand); box-shadow: 0 5px 0 var(--color-mochi-tint); border: 2px solid var(--color-line-strong); }
+.question-scene .choice--math { width: 180px; }
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .story-fish { width: 80px; height: 88px; }
+  .story-cat { width: 112px; }
+  .question-scene .tile-group .tile { min-width: 105px; font-size: 22px; }
+  .question-scene .tile-row { gap: 14px; }
+}
+/* Short desktop/tablet windows keep the question and all choices visible together. */
+@media (min-width: 701px) and (max-height: 800px) {
+  .question-scene { padding-top: 14px; padding-bottom: 18px; }
+  .question-scene .shell-header { margin-bottom: 12px; }
+  .question-scene .title-row > .audio-button { width: 64px !important; height: 64px !important; }
+  .question-scene .prompt { font-size: clamp(30px, 3.5vw, 47px); }
+  .question-scene .question-kicker { margin-bottom: 8px; }
+  .question-scene .picture-wrap, .question-scene .builder-picture-wrap { padding-top: 14px; }
+  .question-scene .picture-panel--math, .question-scene .picture-panel--takeaway, .question-scene .picture-panel--track { min-height: 210px; margin-top: 14px; }
+  .question-scene .picture-card { min-height: 210px; padding: 10px 14px; }
+  .question-scene .story-cat { height: 125px; }
+  .question-scene .story-scene-image { height: 170px; }
+  .question-scene .picture-panel--builder { width: min(100%, 540px); }
+  .question-scene .picture-panel--takeaway .story-fish { width: 78px; height: 54px; }
+  .question-scene .builder-slots { padding-top: 14px; }
+  .question-scene .builder-slot { min-height: 64px; font-size: 25px; }
+  .question-scene .tile-row { padding-top: 12px; }
+  .question-scene .tile-group .tile { min-height: 52px; }
+  .question-scene .equation { padding-top: 18px !important; font-size: 56px; }
+  .question-scene .slot--math { height: 72px; }
+  .question-scene .choice-row { padding-top: 20px !important; }
+  .question-scene .choice--math { height: 78px !important; font-size: 45px; }
+  .question-scene .choice--word { height: 84px !important; font-size: 54px; }
+  .question-scene .slot--word { height: 72px; }
+  .question-scene .number-path-step { padding-top: 100px; }
+  .question-scene .number-hop { top: 10px; }
+  .question-scene .number-path .track-cell { height: 64px; }
+}
