@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useOutletContext, useParams } from 'react-router-dom';
 import { NotFoundView } from './PlaceholderView.jsx';
-import { QUESTIONS_PER_STUDENT, findClass, students } from './mockData.js';
+import { QUESTIONS_PER_STUDENT, findClass, isAssessed as assessedBy, readTicks, ticksKey } from './mockData.js';
 
 const SORTS = {
   az: (a, b) => a.name.localeCompare(b.name),
@@ -23,21 +23,19 @@ export default function ClassView() {
 
 function ClassDetail({ cls }) {
   const { subject } = useOutletContext();
-  const classId = cls.id;
+  const { students } = cls;
   const [sort, setSort] = useState('pending');
   const [query, setQuery] = useState('');
-  const storageKey = `cty-assessed-${subject}-${classId}`;
-  const [checked, setChecked] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem(storageKey)) ?? {};
-    } catch {
-      return {};
-    }
-  });
+  const storageKey = ticksKey(subject, cls.id);
+  const [checked, setChecked] = useState(() => readTicks(subject, cls.id));
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(checked));
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(checked));
+    } catch {
+      // Storage blocked: ticks last until the page reloads.
+    }
   }, [storageKey, checked]);
-  const isAssessed = (s) => checked[s.id] ?? s.answered === QUESTIONS_PER_STUDENT;
+  const isAssessed = (s) => assessedBy(checked, s);
 
   const list = students
     .filter((s) => s.name.toLowerCase().includes(query.toLowerCase()))

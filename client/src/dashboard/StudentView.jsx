@@ -6,7 +6,7 @@ import { MAX_TOPIC_SCORE, QUESTIONS_PER_STUDENT, findClass, findStudent, topicSc
 export default function StudentView() {
   const { classId, studentId } = useParams();
   const cls = findClass(classId);
-  const student = findStudent(studentId);
+  const student = findStudent(cls, studentId);
   if (!cls || !student) return <NotFoundView title="Student not found" />;
   return <StudentDetail cls={cls} student={student} />;
 }
