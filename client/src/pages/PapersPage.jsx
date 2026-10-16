@@ -22,13 +22,13 @@ export default function PapersPage() {
       <button className="home-cat-button" aria-label="Pet your cat" onClick={(event) => { event.currentTarget.classList.remove('is-petted'); void event.currentTarget.offsetWidth; event.currentTarget.classList.add('is-petted'); }}><CatCharacter cat={selectedCat} outfit={equippedOutfit} /></button>
       {equippedShirt !== 'yellow' && <span className="reference-avatar reference-avatar--home"><StudentAvatar size={110} /></span>}
       <button className="scene-hit scene-hit--profile" aria-label="Open profile" aria-expanded={profileOpen} onClick={() => setProfileOpen(!profileOpen)} />
-      {profileOpen && <div className="reference-profile"><p>Student ID: 20251234</p><button onClick={() => { setProfileOpen(false); setSignedOut(true); }}>Log out</button></div>}
+      {profileOpen && <div className="reference-profile"><p>Student ID: S001</p><button onClick={() => { setProfileOpen(false); setSignedOut(true); }}>Log out</button></div>}
       <button className="scene-hit scene-hit--badge" aria-label="Learning Badges" onClick={(event) => openRoom('badges', event)} />
       <button className="scene-hit scene-hit--wardrobe" aria-label="Wardrobe" onClick={(event) => openRoom('wardrobe', event)} />
       <button className="scene-hit scene-hit--shop" aria-label="Shop" onClick={(event) => openRoom('shop', event)} />
       <button className="scene-hit scene-hit--math" aria-label="Start Maths Adventure" onClick={() => navigate('/papers/math')} />
       <button className="scene-hit scene-hit--english" aria-label="Start English Adventure" onClick={() => navigate('/papers/english')} />
-      {signedOut && <div className="reference-signed-out"><p>Logged out</p><button onClick={() => setSignedOut(false)}>Continue as Student 20251234</button></div>}
+      {signedOut && <div className="reference-signed-out"><p>Logged out</p><button onClick={() => setSignedOut(false)}>Continue as Student S001</button></div>}
     </div>
   </main>;
 }

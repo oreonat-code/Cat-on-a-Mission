@@ -8,8 +8,14 @@ const outfitPosition = { hoodie: ['0%', '0%'], scarf: ['50%', '0%'], bow: ['100%
 
 export default function CatCharacter({ cat = 'calico', outfit = 'hoodie', className = '' }) {
   const position = outfitPosition[outfit];
-  return <span className={`painted-cat ${className}`} role="img" aria-label={`${cat} cat${outfit ? ` wearing ${outfit}` : ''}`}>
-    <span className={`painted-cat__body ${cat === 'white' ? 'painted-cat__body--white' : ''}`} style={{ backgroundImage: `url(${cat === 'white' ? whiteCat : catsSprite})`, backgroundPositionX: catPosition[cat] || '0%' }} />
+  const bodyStyle = { backgroundImage: `url(${cat === 'white' ? whiteCat : catsSprite})`, backgroundPositionX: cat === 'white' ? 'center' : catPosition[cat] || '0%', backgroundPositionY: 'center', ...(cat === 'white' ? { backgroundSize: '140% auto' } : {}) };
+  return <span className={`painted-cat ${className}`} style={{ position: 'relative', width: '100%', height: '100%' }} role="img" aria-label={`${cat} cat${outfit ? ` wearing ${outfit}` : ''}`}>
+    <span className={`painted-cat__body ${cat === 'white' ? 'painted-cat__body--white' : ''}`} style={{ ...bodyStyle, clipPath: cat === 'grey' || cat === 'orange' ? 'inset(0 0 0 3%)' : undefined }} />
     {position && <span className={`painted-cat__outfit painted-cat__outfit--${outfit}`} style={{ backgroundImage: `url(${outfit === 'beanie' ? beanieArt : outfitsSprite})`, backgroundPosition: outfit === 'beanie' ? 'center' : position.join(' '), backgroundSize: outfit === 'beanie' ? 'cover' : undefined }} />}
+    {outfit === 'hoodie' && <>
+      <span className="painted-cat__body painted-cat__head" style={bodyStyle} aria-hidden="true" />
+      <span className="painted-cat__body painted-cat__paw painted-cat__paw--left" style={bodyStyle} aria-hidden="true" />
+      <span className="painted-cat__body painted-cat__paw painted-cat__paw--right" style={bodyStyle} aria-hidden="true" />
+    </>}
   </span>;
 }

@@ -20,16 +20,16 @@ const wardrobeOutfits = [[820, 263, 194, 239], [1031, 263, 197, 239], [1242, 263
 const wardrobeShirts = [[822, 861, 110, 142], [939, 861, 110, 142], [1057, 861, 111, 142], [1175, 861, 108, 142]];
 const wardrobeOrder = ['hoodie', 'scarf', 'bow', 'pyjamas', 'party', 'bear'];
 const outfitCell = { hoodie: ['0%', '0%'], scarf: ['50%', '0%'], bow: ['100%', '0%'], pyjamas: ['0%', '100%'], party: ['50%', '100%'], beanie: ['50%', '100%'], bear: ['100%', '100%'] };
-function OutfitThumb({ id }) { return <span className="outfit-thumb" role="img" aria-label={id} style={{ backgroundImage: `url(${id === 'beanie' ? beanieArt : outfitsSprite})`, backgroundPosition: id === 'beanie' ? 'center' : outfitCell[id].join(' '), backgroundSize: id === 'beanie' ? 'contain' : undefined }} />; }
+export function OutfitThumb({ id }) { return <span className="outfit-thumb" role="img" aria-label={id} style={{ backgroundImage: `url(${id === 'beanie' ? beanieArt : outfitsSprite})`, backgroundPosition: id === 'beanie' ? 'center' : outfitCell[id].join(' '), backgroundSize: id === 'beanie' ? 'contain' : undefined, clipPath: id === 'scarf' ? 'inset(0 0 0 3%)' : undefined }} />; }
 
-function useSceneBack() { const navigate = useNavigate(); return (event) => { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { navigate('/papers'); return; } event.currentTarget.closest('.reference-stage')?.classList.add('reference-leave--back'); window.setTimeout(() => navigate('/papers'), 300); }; }
-function Stage({ image, kind, children }) { return <main className="reference-page"><div className={`reference-stage reference-stage--${kind}`} style={{ backgroundImage: `url(${image})` }}>{children}</div></main>; }
-function SceneTop({ back, fish, fishBox, shirt, avatar = true }) {
+export function useSceneBack() { const navigate = useNavigate(); return (event) => { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { navigate('/papers'); return; } event.currentTarget.closest('.reference-stage')?.classList.add('reference-leave--back'); window.setTimeout(() => navigate('/papers'), 300); }; }
+export function Stage({ image, kind, children }) { return <main className="reference-page"><div className={`reference-stage reference-stage--${kind}`} style={{ backgroundImage: `url(${image})` }}>{children}</div></main>; }
+export function SceneTop({ back, fish, fishBox, shirt, avatar = true }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [signedOut, setSignedOut] = useState(false);
   return <><Hit label="Back to Home" box={[35, 25, 245, 100]} onClick={back} /><span className="reference-fish reference-fish--scene" style={{ left: `${fishBox[0] / 1484 * 100}%`, top: `${fishBox[1] / 1060 * 100}%`, width: `${fishBox[2] / 1484 * 100}%` }}>{fish}</span>
-    {avatar && <>{shirt !== 'yellow' && <span className="reference-avatar reference-avatar--scene"><StudentAvatar size={100} /></span>}<Hit label="Open profile" box={[1290, 25, 165, 165]} onClick={() => setProfileOpen(!profileOpen)} />{profileOpen && <div className="reference-profile reference-profile--scene"><p>Student ID: 20251234</p><button onClick={() => { setProfileOpen(false); setSignedOut(true); }}>Log out</button></div>}</>}
-    {signedOut && <div className="reference-signed-out"><p>Logged out</p><button onClick={() => setSignedOut(false)}>Continue as Student 20251234</button></div>}
+    {avatar && <>{shirt !== 'yellow' && <span className="reference-avatar reference-avatar--scene"><StudentAvatar size={100} /></span>}<Hit label="Open profile" box={[1290, 25, 165, 165]} onClick={() => setProfileOpen(!profileOpen)} />{profileOpen && <div className="reference-profile reference-profile--scene"><p>Student ID: S001</p><button onClick={() => { setProfileOpen(false); setSignedOut(true); }}>Log out</button></div>}</>}
+    {signedOut && <div className="reference-signed-out"><p>Logged out</p><button onClick={() => setSignedOut(false)}>Continue as Student S001</button></div>}
   </>;
 }
 

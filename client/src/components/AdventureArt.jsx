@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { useAdventure } from '../lib/adventure.jsx';
 import studentAvatars from '../assets/cat-world/student-avatars.png';
 export function Icon({ name, size = 28 }) {
@@ -36,7 +37,20 @@ export function CatAvatar({ size = 64, cat, outfit }) {
   </span>;
 }
 export function ShirtArt({ kind, size = 62 }) {
-  return <svg width={size} height={size} viewBox="0 0 64 64" className={`art shirt-art shirt-art--${kind}`} aria-hidden="true"><path d="M17 9 25 5h14l8 4 12 13-10 9-7-6v32H22V25l-7 6L5 22Z" fill="var(--shirt-fill)" stroke="var(--color-line-strong)" strokeWidth="2" strokeLinejoin="round"/><path d="M25 5q7 12 14 0" fill="var(--color-surface)" stroke="var(--color-surface)" strokeWidth="3"/><text x="32" y="43" textAnchor="middle" fontSize="20">{kind === 'green' ? '★' : kind === 'pink' ? '♥' : '🐱'}</text></svg>;
+  const fabricId = useId();
+  return <svg width={size} height={size} viewBox="0 0 100 100" className={`art shirt-art shirt-art--${kind}`} aria-hidden="true">
+    <defs><linearGradient id={fabricId} x1="0" y1="0" x2=".8" y2="1" gradientUnits="objectBoundingBox"><stop stopColor="var(--color-surface)" /><stop offset=".4" stopColor="var(--shirt-fill)" /><stop offset="1" stopColor="var(--shirt-shade)" /></linearGradient></defs>
+    <path d="M32 15 19 22 7 40q-2 4 2 6l13 7 8-10-2 39q21 7 44 0l-2-39 8 10 13-7q4-2 2-6L81 22 68 15q-18 8-36 0Z" fill={`url(#${fabricId})`} stroke="var(--shirt-shade)" strokeWidth="2.5" strokeLinejoin="round" />
+    <path d="M33 15q17 18 34 0l-4-3q-13 7-26 0Z" fill="var(--color-surface)" stroke="var(--shirt-shade)" strokeWidth="2" />
+    <path d="m10 42 12 7m56 0 12-7M30 78q20 5 40 0" fill="none" stroke="var(--shirt-shade)" strokeWidth="2" strokeLinecap="round" />
+    <path d="m30 43 2-9m38 9-2-9M35 72l2-15m28 15-2-15" fill="none" stroke="var(--shirt-shade)" strokeOpacity=".5" strokeWidth="2" strokeLinecap="round" />
+    {kind === 'green' ? <path d="m50 39 5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1Z" fill="var(--color-ink)" /> : kind === 'pink' ? <path d="M50 68 36 55c-12-13 4-23 14-12 10-11 26-1 14 12Z" fill="var(--color-ink)" /> : <g>
+      <path d="m37 47 1-11 10 7h4l10-7 1 11q6 5 4 14-3 11-17 11T33 61q-2-9 4-14Z" fill="var(--color-surface)" />
+      <path d="m40 45 1-5 5 4m8 0 5-4 1 5" fill="var(--color-mochi-tint)" />
+      <path d="M42 54v2m16-2v2m-11 6q3 4 6 0m-17-4 5 1m18 0 5-1" stroke="var(--color-ink)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <path d="m48 58 2 2 2-2Z" fill="var(--color-mochi)" />
+    </g>}
+  </svg>;
 }
 export function StudentAvatar({ size = 64 }) {
   const { equippedShirt } = useAdventure();

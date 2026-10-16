@@ -28,9 +28,10 @@
 .reference-avatar--home { left: 90.5%; top: 2%; width: 7.7%; aspect-ratio: 1; }
 .reference-avatar--scene { right: 2.4%; top: 3%; width: 10.8%; aspect-ratio: 1; }
 .reference-avatar--wardrobe { right: 3.7%; bottom: 7.7%; width: 9.7%; aspect-ratio: 1; }
-.reference-profile { position: absolute; z-index: 6; top: 13.4%; right: 1.25%; width: 12.1%; padding: 1.1% 1.1%; border-radius: 17px; background: var(--color-surface); box-shadow: 0 6px 20px color-mix(in srgb, var(--color-ink) 14%, transparent); font-size: clamp(11px, 1.05vw, 17px); }
-.reference-profile p { margin: 0 0 12px; color: var(--color-text-muted); white-space: nowrap; }
-.reference-profile button { display: block; width: 100%; border-top: 1px solid var(--color-line); padding-top: 8px; color: #b42331; font-weight: 900; text-align: left; }
+.reference-profile { position: absolute; z-index: 6; top: 13.4%; right: 1.25%; width: 16cqw; box-sizing: border-box; padding: 1cqw; border: .15cqw solid var(--color-line); border-radius: 1.4cqw; background: var(--color-surface); box-shadow: 0 .4cqw 1.3cqw color-mix(in srgb, var(--color-ink) 14%, transparent); font-size: 1.2cqw; line-height: 1.4; }
+.reference-profile p { margin: 0 0 .7cqw; color: var(--color-text-muted); overflow-wrap: anywhere; }
+.reference-profile button { display: block; width: 100%; border-top: .1cqw solid var(--color-line); padding-top: .6cqw; color: var(--color-ink); font-size: inherit; line-height: inherit; font-weight: 900; text-align: left; }
+.reference-profile button:focus-visible { outline: .2cqw solid var(--color-cobalt); outline-offset: .2cqw; }
 .reference-signed-out { position: absolute; z-index: 8; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; background: color-mix(in srgb, var(--color-surface) 92%, transparent); font-size: 32px; font-weight: 900; }
 .reference-signed-out button { padding: 14px 24px; border-radius: 24px; background: var(--color-cobalt); color: var(--color-text-on-fill); font-size: 20px; }
 .reference-status { position: absolute; z-index: 3; display: grid; place-items: center; border-radius: 999px; background: var(--color-text-mint); color: var(--color-text-on-fill); font-size: clamp(11px, 1.7vw, 24px); font-weight: 900; pointer-events: none; }
@@ -76,11 +77,16 @@
 .painted-cat__body { inset: 0; background-size: 300% 100%; }
 .painted-cat__body--white { background-size: cover; background-position: center; }
 .painted-cat__outfit { background-size: 300% 200%; }
-.painted-cat__outfit--hoodie, .painted-cat__outfit--pyjamas { left: 17.5%; top: 43%; width: 65%; aspect-ratio: 1; }
+.painted-cat__outfit--pyjamas { left: 17.5%; top: 43%; width: 65%; aspect-ratio: 1; }
+/* The chin and front paws sit in front of clothing, like a fitted garment. */
+.painted-cat__outfit--hoodie { left: 23%; top: 50%; width: 62%; height: 45%; }
+.painted-cat__head { clip-path: polygon(0 0, 100% 0, 100% 55%, 88% 55%, 82% 61%, 70% 65%, 54% 66.5%, 39% 65%, 27% 61%, 18% 55%, 0 55%); }
+.painted-cat__paw--left { clip-path: ellipse(7.6% 5% at 47% 88%); }
+.painted-cat__paw--right { clip-path: ellipse(7.6% 5% at 64% 88%); }
 .painted-cat__outfit--scarf { left: 22.5%; top: 43%; width: 55%; aspect-ratio: 1; }
 .painted-cat__outfit--bow { left: 58%; top: 17%; width: 35%; aspect-ratio: 1; }
 .painted-cat__outfit--party, .painted-cat__outfit--beanie { left: 22.5%; top: -15%; width: 55%; aspect-ratio: 1; }
 .painted-cat__outfit--bear { left: 5%; top: 9%; width: 90%; aspect-ratio: 1; }
 .reference-profile--scene { top: 17%; right: 2%; width: 16%; }
-@media (max-width: 700px) { .reference-profile { min-width: 150px; right: 1%; font-size: 12px; } .reference-fish--home { font-size: 20px; } .reference-fish--scene { font-size: 20px; } }
+@media (max-width: 700px) { .reference-fish--home { font-size: 20px; } .reference-fish--scene { font-size: 20px; } }
 @media (prefers-reduced-motion: reduce) { .reference-stage, .reference-stage[class*="reference-leave"] { animation: none; } .scene-hit, .reference-hit { transition: none; } }

@@ -148,7 +148,7 @@ export function ShellHeader({ progress = 0, steps = 3, onClose }) {
   useEffect(() => { if (!flying.current) setShown(fish); });
 
   return <header className="shell-header" ref={headerRef}>
-    <button type="button" className="home-button" onClick={onClose} aria-label="Back to home"><img src={logo} alt="Catch Them Young" /><span><Icon name="home" size={16} /> Home</span></button>
+    <button type="button" className="home-button" onClick={onClose} aria-label="Back to home"><Icon name="home" size={34} /><span>Home</span></button>
     <FishTrail progress={progress} steps={steps} /><FishBalance value={shown} pulse={landed} />
     {stopSpark && <Burst key={'stop-' + stopSpark.id} sparks={STOP_SPARKS} delay={STOP_SPARK_DELAY_MS} x={stopSpark.x} y={stopSpark.y} />}
     {bowlBurst && <Burst key={'bowl-' + bowlBurst.id} sparks={BOWL_SPARKS} x={bowlBurst.x} y={bowlBurst.y} />}

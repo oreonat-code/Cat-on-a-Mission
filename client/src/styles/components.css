@@ -48,8 +48,8 @@ button:active:not(:disabled) { transform: translateY(2px); }
 /* Activities share one quiet central reading area. */
 .shell-header { max-width: 1200px; margin: 0 auto 20px; }
 .shell-header .fish-trail { width: 540px; max-width: 62%; }
-.home-button { display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid var(--color-line-strong); background: var(--color-surface); border-radius: 26px; width: 84px; min-height: 76px; font-size: 14px; font-weight: 900; }
-.home-button img { width: 45px; height: auto; }
+.home-button { display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid var(--color-line-strong); background: var(--color-surface); border-radius: 26px; width: 84px; min-height: 76px; gap: 4px; font-size: 16px; font-weight: 900; }
+.home-button > svg { flex-shrink: 0; }
 .home-button span { display: flex; align-items: center; gap: 4px; }
 .question-content { max-width: 1080px; margin: auto; padding: 12px 34px 30px; background: color-mix(in srgb, var(--color-surface) 91%, transparent); border-radius: 48px; }
 .question-kicker { margin: 0 0 12px; text-align: center; color: var(--color-text-muted); font-size: 15px; font-weight: 800; letter-spacing: .04em; }
