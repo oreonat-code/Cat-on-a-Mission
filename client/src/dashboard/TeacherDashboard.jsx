@@ -22,7 +22,7 @@ function readComfort() {
   }
 }
 
-export default function TeacherDashboard({ username = 'user123' }) {
+export default function TeacherDashboard({ username, onLogout }) {
   // page: 'home' | 'class' | 'student' | 'create' | 'admin'
   const [page, setPage] = useState('home');
   const [classId, setClassId] = useState(1);
@@ -108,7 +108,7 @@ export default function TeacherDashboard({ username = 'user123' }) {
           <input type="checkbox" checked={comfort} onChange={(e) => setComfort(e.target.checked)} />
           Comfort colours
         </label>
-        <button className="logout">Log Out</button>
+        <button className="logout" onClick={onLogout}>Log Out</button>
       </aside>
       <main>
         <div className="top">
