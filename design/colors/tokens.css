@@ -1,0 +1,75 @@
+/*
+ * Pip's Pool — UI colour tokens ("tidal" palette)
+ * Plain CSS custom properties. Import once at the root of the app.
+ *
+ * Contrast figures are WCAG 2.x ratios against the surface named in the comment.
+ * Rule of thumb: >= 4.5 for text, >= 3 for large text and for borders that
+ * mark a tap target.
+ */
+
+:root {
+  /* ---- Core brand ------------------------------------------------ */
+  --color-ink: #12263f;            /* all body text. 15.3 on white */
+  --color-cobalt: #2557d6;         /* primary actions, progress, "tens". 6.2 on white; white on it 6.2 */
+  --color-cobalt-deep: #17399a;    /* pressed state, button shadow, labels on tint. 6.5 on cobalt-tint */
+  --color-cobalt-tint: #bfd0f5;    /* soft fills, hundreds block, number-line hops */
+  --color-cobalt-wash: #f3f7ff;    /* selected card background, empty answer slot */
+
+  --color-seafoam: #ddf5ee;        /* calm panels behind pictures. ink on it 13.4 */
+  --color-sand: #ffe7c2;           /* gentle "try again" panel (never red). ink on it 12.7 */
+  --color-cream: #fff3cc;          /* highlight panels, star pill background */
+
+  /* ---- Reward + object colours (fills and borders, NOT text) ------ */
+  --color-star: #ffc93c;           /* stars, "ones". ink on it 9.9 */
+  --color-star-edge: #e0a400;      /* outline for yellow shapes */
+  --color-mochi: #f29b4b;          /* the cat, "added" items. ink on it 7.0 */
+  --color-mochi-tint: #fbd3ae;     /* added-hundreds block, shadow under orange tiles */
+  --color-mochi-wash: #fff4e6;     /* "does what" slot background */
+  --color-mint: #3dbba0;           /* "where" slot border. border only, 2.4 on white */
+  --color-mint-wash: #e7f8f3;      /* "where" slot background */
+  --color-mint-tint: #bfe6d8;      /* shadow under mint tiles, room floor */
+
+  /* ---- Text-safe variants (use these when a hue must be text) ----- */
+  --color-text-muted: #5b6b80;     /* captions. 5.4 on white */
+  --color-text-mochi: #a8530b;     /* orange as text. 5.4 on white, 5.0 on mochi-wash */
+  --color-text-mint: #17745f;      /* teal as text. 5.7 on white, 5.2 on mint-wash */
+  --color-text-star: #7a5a00;      /* yellow as text. 5.8 on cream */
+  --color-text-on-fill: #ffffff;   /* only on cobalt or cobalt-deep. never on orange, yellow or mint */
+
+  /* ---- Surfaces and lines ---------------------------------------- */
+  --color-surface: #ffffff;
+  --color-surface-quiet: #eef1f6;  /* close button, locked item, progress track */
+  --color-line: #e3e8ef;           /* decorative divider only. 1.2 on white */
+  --color-line-strong: #7c8a9e;    /* border that marks a tap target. 3.5 on white */
+
+  /* ---- Feedback (no red anywhere) --------------------------------- */
+  --color-feedback-correct: var(--color-seafoam);
+  --color-feedback-correct-edge: var(--color-cobalt);
+  --color-feedback-retry: var(--color-sand);
+  --color-feedback-retry-edge: #f2b866;
+
+  /* ---- Maths place value: same colour means the same thing on
+          every picture (tens board and the 1000 blocks) ------------- */
+  --color-place-hundreds: var(--color-cobalt-tint);
+  --color-place-tens: var(--color-cobalt);
+  --color-place-ones: var(--color-star);
+  --color-place-added: var(--color-mochi);
+}
+
+/*
+ * Optional reading-comfort theme. Switch on with <html data-theme="comfort">.
+ * Some dyslexic readers find pure white glaring; this is a soft cream ground.
+ * Ink stays the same, so text keeps 14.4 contrast.
+ */
+:root[data-theme="comfort"] {
+  --color-surface: #fff8e7;
+  --color-line-strong: #6f7d92;    /* keeps 3.3+ on the cream ground */
+}
+
+/* Respect the OS setting for people who need less brightness. */
+@media (prefers-contrast: more) {
+  :root {
+    --color-text-muted: #3d4b5e;
+    --color-line: #7c8a9e;
+  }
+}

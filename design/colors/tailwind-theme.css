@@ -1,0 +1,33 @@
+/*
+ * Tailwind v4 theme for Pip's Pool.
+ * Usage:  @import "tailwindcss";  @import "./tailwind-theme.css";
+ * Gives you classes like bg-cobalt, text-ink, border-line-strong.
+ * Values match tokens.css. Change them in both places, or generate one from the other.
+ */
+@theme {
+  --color-ink: #12263f;
+  --color-cobalt: #2557d6;
+  --color-cobalt-deep: #17399a;
+  --color-cobalt-tint: #bfd0f5;
+  --color-cobalt-wash: #f3f7ff;
+  --color-seafoam: #ddf5ee;
+  --color-sand: #ffe7c2;
+  --color-cream: #fff3cc;
+  --color-star: #ffc93c;
+  --color-star-edge: #e0a400;
+  --color-mochi: #f29b4b;
+  --color-mochi-tint: #fbd3ae;
+  --color-mochi-wash: #fff4e6;
+  --color-mint: #3dbba0;
+  --color-mint-wash: #e7f8f3;
+  --color-mint-tint: #bfe6d8;
+  --color-text-muted: #5b6b80;
+  --color-text-mochi: #a8530b;
+  --color-text-mint: #17745f;
+  --color-text-star: #7a5a00;
+  --color-surface-quiet: #eef1f6;
+  --color-line: #e3e8ef;
+  --color-line-strong: #7c8a9e;
+
+  --font-sans: "Nunito", ui-rounded, system-ui, sans-serif;
+}
