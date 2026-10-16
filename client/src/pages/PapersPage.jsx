@@ -1,65 +1,34 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { papers } from '../data/papers.js';
-import AudioButton from '../components/AudioButton.jsx';
-import { Fish, SleepingCat } from '../components/art/Art.jsx';
-import logo from '../../../design/brand/cty-logo.webp';
-
-const SUBJECT_ART = {
-  english: () => (
-    <div className="subject-panel subject-panel--english">
-      <SleepingCat colour="orange" size={100} />
-      <SleepingCat colour="light" size={100} />
-      <SleepingCat colour="slate" size={100} />
-    </div>
-  ),
-  math: () => (
-    <div className="subject-panel subject-panel--math">
-      <div className="fish-group">
-        <Fish colour="orange" width={52} height={36} />
-        <Fish colour="orange" width={52} height={36} />
-        <Fish colour="orange" width={52} height={36} />
-      </div>
-      <div className="panel-plus" aria-hidden="true">+</div>
-      <div className="fish-group">
-        <Fish colour="blue" width={52} height={36} />
-        <Fish colour="blue" width={52} height={36} />
-      </div>
-    </div>
-  ),
-};
+import { useAdventure } from '../lib/adventure.jsx';
+import { StudentAvatar } from '../components/AdventureArt.jsx';
+import CatCharacter from '../components/CatCharacter.jsx';
+import homeImage from '../assets/cat-world/home-empty-perch.png';
 
 export default function PapersPage() {
   const navigate = useNavigate();
-
-  return (
-    <main className="canvas">
-      <header className="papers-header">
-        <img className="logo" src={logo} alt="Catch Them Young" />
-      </header>
-
-      <h1 className="papers-title">Papers</h1>
-      <p className="papers-subtitle">Pick one to start</p>
-
-      <div className="subject-cards">
-        {papers.map((paper) => {
-          const Art = SUBJECT_ART[paper.id];
-          return (
-            <div key={paper.id} className="subject-card-wrap">
-              <button type="button" className="subject-card" onClick={() => navigate(`/papers/${paper.id}`)}>
-                {Art && <Art />}
-                <span className="subject-name">{paper.title}</span>
-              </button>
-              <AudioButton
-                text={paper.title}
-                size={56}
-                lip={4}
-                label={`Listen: ${paper.title}`}
-                className="subject-audio"
-              />
-            </div>
-          );
-        })}
-      </div>
-    </main>
-  );
+  const { fish, equippedShirt, selectedCat, equippedOutfit } = useAdventure();
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [signedOut, setSignedOut] = useState(false);
+  function openRoom(destination, event) {
+    const stage = event.currentTarget.closest('.reference-stage');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { navigate(`/papers/${destination}`); return; }
+    stage.classList.add(`reference-leave--${destination}`);
+    window.setTimeout(() => navigate(`/papers/${destination}`), 300);
+  }
+  return <main className="reference-page">
+    <div className="reference-stage reference-stage--home" style={{ backgroundImage: `url(${homeImage})` }}>
+      <span className="reference-fish reference-fish--home">{fish}</span>
+      <button className="home-cat-button" aria-label="Pet your cat" onClick={(event) => { event.currentTarget.classList.remove('is-petted'); void event.currentTarget.offsetWidth; event.currentTarget.classList.add('is-petted'); }}><CatCharacter cat={selectedCat} outfit={equippedOutfit} /></button>
+      {equippedShirt !== 'yellow' && <span className="reference-avatar reference-avatar--home"><StudentAvatar size={110} /></span>}
+      <button className="scene-hit scene-hit--profile" aria-label="Open profile" aria-expanded={profileOpen} onClick={() => setProfileOpen(!profileOpen)} />
+      {profileOpen && <div className="reference-profile"><p>Student ID: S001</p><button onClick={() => { setProfileOpen(false); setSignedOut(true); }}>Log out</button></div>}
+      <button className="scene-hit scene-hit--badge" aria-label="Learning Badges" onClick={(event) => openRoom('badges', event)} />
+      <button className="scene-hit scene-hit--wardrobe" aria-label="Wardrobe" onClick={(event) => openRoom('wardrobe', event)} />
+      <button className="scene-hit scene-hit--shop" aria-label="Shop" onClick={(event) => openRoom('shop', event)} />
+      <button className="scene-hit scene-hit--math" aria-label="Start Maths Adventure" onClick={() => navigate('/papers/math')} />
+      <button className="scene-hit scene-hit--english" aria-label="Start English Adventure" onClick={() => navigate('/papers/english')} />
+      {signedOut && <div className="reference-signed-out"><p>Logged out</p><button onClick={() => setSignedOut(false)}>Continue as Student S001</button></div>}
+    </div>
+  </main>;
 }

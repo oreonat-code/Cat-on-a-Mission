@@ -1,0 +1,38 @@
+.wardrobe-fixed-panel { position: absolute; z-index: 2; box-sizing: border-box; background: var(--color-mochi-wash); border: .55cqw solid var(--color-surface); border-radius: 3cqw; padding: 1.2cqw; box-shadow: 0 .4cqw 0 var(--color-mochi-tint); color: var(--color-ink); }
+.wardrobe-fixed-preview { position: absolute; z-index: 1; left: 17.5%; bottom: 26%; width: 28cqw; height: 28cqw; }
+.wardrobe-fixed-preview-caption { position: absolute; z-index: 2; left: 13%; top: 70.7%; width: 34%; margin: 0; padding: .3cqw .8cqw; box-sizing: border-box; border-radius: 999px; text-align: center; color: var(--color-ink); background: var(--color-surface); font-weight: 800; font-size: 1.15cqw; }
+.wardrobe-fixed-outfits { left: 53.7%; top: 17.4%; width: 44.9%; height: 56.4%; display: flex; flex-direction: column; }
+.wardrobe-fixed-heading { display: flex; justify-content: space-between; align-items: center; flex: none; gap: .6cqw; min-height: 3cqw; margin-bottom: .8cqw; }
+.wardrobe-fixed-heading h2 { font-size: 2.2cqw; line-height: 1.15; font-weight: 900; margin: 0; }
+.wardrobe-fixed-heading .audio-button { width: 2.6cqw !important; height: 2.6cqw !important; min-width: 0; flex: none; --lip: .2cqw !important; }
+.wardrobe-fixed-heading .audio-button svg { width: 1.4cqw; height: 1.4cqw; }
+.wardrobe-fixed-outfit-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: .7cqw; flex: 1; min-height: 0; }
+.wardrobe-fixed-item { box-sizing: border-box; min-height: 0; min-width: 0; border: .16cqw solid var(--color-line-strong); border-radius: 1.5cqw; background: var(--color-surface); color: var(--color-ink); display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: .3cqw; padding: .6cqw; text-align: center; cursor: pointer; }
+.wardrobe-fixed-item:nth-child(even) { background: var(--color-cobalt-wash); }
+.wardrobe-fixed-item.is-equipped { border: .3cqw solid var(--color-cobalt); background: var(--color-seafoam); padding: .46cqw; }
+.wardrobe-fixed-item:focus-visible { outline: .3cqw solid var(--color-cobalt); outline-offset: .2cqw; }
+.wardrobe-fixed-item:hover { box-shadow: 0 .2cqw .5cqw color-mix(in srgb, var(--color-ink) 14%, transparent); }
+.wardrobe-fixed-outfit-art { width: 100%; height: 8.8cqw; display: grid; place-items: center; min-height: 0; }
+.wardrobe-fixed-outfit-art .outfit-thumb { width: 8.2cqw; height: 8.2cqw; max-width: 100%; }
+.wardrobe-fixed-item strong { font-size: 1.1cqw; line-height: 1.1; font-weight: 900; min-height: 2.3cqw; display: grid; place-items: center; }
+.wardrobe-fixed-action { display: block; align-self: stretch; border-radius: 999px; padding: .45cqw .15cqw; background: var(--color-cobalt); color: var(--color-text-on-fill); font-size: 1.1cqw; line-height: 1.1; font-weight: 900; }
+.wardrobe-fixed-action.is-equipped { background: var(--color-seafoam); color: var(--color-ink); }
+.wardrobe-fixed-cats { left: 9.5%; top: 76.5%; width: 41.6%; height: 19%; padding: .8cqw; }
+.wardrobe-fixed-cats .wardrobe-fixed-heading, .wardrobe-fixed-shirts .wardrobe-fixed-heading { min-height: 2cqw; margin-bottom: .4cqw; }
+.wardrobe-fixed-cats .wardrobe-fixed-heading h2, .wardrobe-fixed-shirts .wardrobe-fixed-heading h2 { font-size: 1.7cqw; }
+.wardrobe-fixed-cat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7cqw; height: 7.4cqw; }
+.wardrobe-fixed-cat-grid .wardrobe-fixed-item { padding: .2cqw .4cqw; }
+.wardrobe-fixed-cat-grid .wardrobe-fixed-item.is-equipped { padding: .06cqw .26cqw; }
+.wardrobe-fixed-cat-art { width: 5.3cqw; height: 5.3cqw; flex: none; }
+.wardrobe-fixed-small-status { font-size: 1cqw; line-height: 1.1; font-weight: 900; color: var(--color-ink); white-space: nowrap; }
+.wardrobe-fixed-shirts { left: 53.7%; top: 75.2%; width: 44.9%; height: 22.5%; padding: .8cqw; }
+.wardrobe-fixed-shirts-row { display: flex; align-items: center; gap: 1cqw; }
+.wardrobe-fixed-shirt-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); flex: 1; gap: .5cqw; height: 9cqw; min-width: 0; }
+.wardrobe-fixed-shirt-grid .wardrobe-fixed-item { padding: .3cqw .2cqw; justify-content: center; }
+.wardrobe-fixed-shirt-grid .wardrobe-fixed-item.is-equipped { padding: .16cqw .06cqw; }
+.wardrobe-fixed-shirt-grid .shirt-art { width: 5.2cqw; height: 5.2cqw; flex: none; }
+.wardrobe-fixed-avatar { width: 7.5cqw; height: 7.5cqw; flex: none; border: .35cqw solid var(--color-surface); border-radius: 50%; overflow: hidden; background: var(--color-cobalt-tint); }
+.wardrobe-fixed-avatar .student-avatar-sprite { width: 100% !important; height: 100% !important; }
+
+.wardrobe-fixed-shirt-grid .wardrobe-fixed-item strong { min-height: 0; font-size: .9cqw; line-height: 1.1; }
+.wardrobe-fixed-shirt-grid .wardrobe-fixed-item { gap: .2cqw; }

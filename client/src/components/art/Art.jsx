@@ -5,7 +5,25 @@ const FISH_COLOURS = {
   blue: { body: 'var(--pc-blue)', eye: 'var(--pc-white)' },
 };
 
-export function Fish({ colour = 'orange', width = 84, height = 58 }) {
+export function Fish({ colour = 'orange', outline = false, width = 84, height = 58 }) {
+  if (outline) {
+    // A fish that swam away: one dashed ink silhouette (body and tail drawn as a single path so no
+    // dashes cross inside the fish), no eye (artboard J2-0). pathLength lets the dashes divide evenly.
+    return (
+      <svg width={width} height={height} viewBox="0 0 64 44" aria-hidden="true" className="art">
+        <path
+          d="M47.65 19.16 62 8v28l-14.35-11.16A22 16 0 1 1 47.65 19.16Z"
+          pathLength="100"
+          fill="none"
+          strokeWidth="3"
+          strokeDasharray="3.4 2.156"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ stroke: 'var(--pc-ink)' }}
+        />
+      </svg>
+    );
+  }
   const c = FISH_COLOURS[colour];
   return (
     <svg width={width} height={height} viewBox="0 0 64 44" aria-hidden="true" className="art">
@@ -30,6 +48,36 @@ export function SleepingCat({ colour = 'orange', size = 140 }) {
       <circle cx="60" cy="68" r="42" style={{ fill: c.body }} />
       <path d="M40 62q6 6 12 0M68 62q6 6 12 0" fill="none" strokeWidth="4" strokeLinecap="round" style={{ stroke: c.line }} />
       <path d="M54 78q6 6 12 0" fill="none" strokeWidth="3.5" strokeLinecap="round" style={{ stroke: c.line }} />
+    </svg>
+  );
+}
+
+// Awake cat, eyes open, no whiskers (artboard TT-0).
+export function Cat({ colour = 'orange', size = 120 }) {
+  const c = CAT_COLOURS[colour];
+  return (
+    <svg width={size} height={size} viewBox="0 0 120 120" aria-hidden="true" className="art">
+      <path d="M20 50L24 14l28 20zM100 50L96 14 68 34z" style={{ fill: c.body }} />
+      <circle cx="60" cy="68" r="42" style={{ fill: c.body }} />
+      <circle cx="45" cy="62" r="6" style={{ fill: c.line }} />
+      <circle cx="75" cy="62" r="6" style={{ fill: c.line }} />
+      <path d="M54 76q6 6 12 0" fill="none" strokeWidth="3.5" strokeLinecap="round" style={{ stroke: c.line }} />
+    </svg>
+  );
+}
+
+// Mochi asleep on the blue sofa (artboard TQ-0).
+export function MochiOnSofa() {
+  const orange = { fill: 'var(--pc-orange)' };
+  return (
+    <svg width="300" height="160" viewBox="0 0 300 160" aria-hidden="true" className="art">
+      <rect x="20" y="96" width="260" height="46" rx="18" style={{ fill: 'var(--pc-blue)' }} />
+      <rect x="20" y="130" width="260" height="14" rx="7" style={{ fill: 'var(--pc-blue-deep)' }} />
+      <ellipse cx="150" cy="86" rx="62" ry="34" style={orange} />
+      <circle cx="108" cy="72" r="30" style={orange} />
+      <path d="M84 52L86 24l22 16zM118 50l8-26 14 22z" style={orange} />
+      <path d="M98 70q6 6 12 0M114 70q6 6 12 0" fill="none" strokeWidth="3.5" strokeLinecap="round" style={{ stroke: 'var(--pc-ink)' }} />
+      <path d="M200 94c24 0 36-16 24-34" fill="none" strokeWidth="12" strokeLinecap="round" style={{ stroke: 'var(--pc-orange)' }} />
     </svg>
   );
 }

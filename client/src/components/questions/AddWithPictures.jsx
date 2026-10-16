@@ -1,16 +1,23 @@
 import AudioButton from '../AudioButton.jsx';
-import AnswerSlot from '../AnswerSlot.jsx';
-import { ChoiceRow } from '../ChoiceCard.jsx';
+import Equation, { equationText } from '../Equation.jsx';
+import { ChoiceRow, useSingleChoice } from '../ChoiceCard.jsx';
 import { TitleRow } from '../QuestionShell.jsx';
-import { Fish } from '../art/Art.jsx';
+import { FishSet } from '../art/QuestionArt.jsx';
+import { choicesText, joinSpeech } from '../../lib/speech-text.js';
 
-// Artboard 6 · Math: add with pictures.
-export default function AddWithPictures({ question, chosen, onChoose }) {
+export function buildSpeech(question, chosen) {
   const { left, right } = question;
+  return joinSpeech(question.prompt, `${left.count} fish plus ${right.count} fish.`, equationText(left.count, '+', right.count, chosen), choicesText(question.choices));
+}
+
+// Illustrated groups are rendered from the question counts, keeping every fish countable.
+export default function AddWithPictures({ question, onComplete }) {
+  const { left, right } = question;
+  const { chosen, choose, isUsed, isDisabled } = useSingleChoice(question, onComplete);
   return (
     <>
       <TitleRow
-        audio={<AudioButton text={question.speech} size={96} />}
+        audio={<AudioButton text={buildSpeech(question, chosen)} size={96} />}
         prompt={question.prompt}
         gap={24}
         paddingTop={12}
@@ -18,33 +25,25 @@ export default function AddWithPictures({ question, chosen, onChoose }) {
 
       <div
         className="picture-panel picture-panel--math"
-        role="img"
-        aria-label={`${left.count} ${left.colour} fish and ${right.count} ${right.colour} fish`}
+        role="group"
+        aria-label="Two groups of fish"
       >
-        <FishGroup {...left} />
+        <div className="fish-scene-group"><FishSet {...left} /></div>
         <div className="panel-plus" aria-hidden="true">+</div>
-        <FishGroup {...right} />
+        <div className="fish-scene-group"><FishSet {...right} /></div>
       </div>
 
-      <div className="equation">
-        <span className="eq-num">{left.count}</span>
-        <span className="eq-op">+</span>
-        <span className="eq-num">{right.count}</span>
-        <span className="eq-op">=</span>
-        <AnswerSlot variant="math" value={chosen} />
-      </div>
+      <Equation left={left.count} op="+" right={right.count} chosen={chosen} paddingTop={28} />
 
-      <ChoiceRow question={question} variant="math" chosen={chosen} onChoose={onChoose} gap={28} paddingTop={36} />
+      <ChoiceRow
+        choices={question.choices}
+        variant="math"
+        isUsed={isUsed}
+        isDisabled={isDisabled}
+        onChoose={choose}
+        gap={28}
+        paddingTop={36}
+      />
     </>
-  );
-}
-
-function FishGroup({ count, colour }) {
-  return (
-    <div className="fish-group">
-      {Array.from({ length: count }, (_, i) => (
-        <Fish key={i} colour={colour} />
-      ))}
-    </div>
   );
 }
