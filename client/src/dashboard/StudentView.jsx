@@ -124,7 +124,7 @@ function StudentDetail({ cls, student }) {
           </div>
         </div>
         <div className="card sum">
-          <h2>Short summary</h2>
+          <h2>AI Generated Feedback</h2>
           <p className="sum-head">
             {student.name} has finished <strong>{student.answered} of {QUESTIONS_PER_STUDENT}</strong> questions ({pct}%).
           </p>
