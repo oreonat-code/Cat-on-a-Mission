@@ -144,6 +144,17 @@ a.nav[aria-current='page'] { color: var(--color-text-on-fill); }
 .sum-box.strong{background:var(--color-seafoam)}
 .sum-box.practise{background:var(--color-cty-yellow);border-style:dashed}
 
+.ai-text{margin:12px 0 4px;padding:14px 16px;border-radius:12px;border:2px solid var(--color-ink);background:var(--color-seafoam);max-width:70ch}
+.ai-line{margin:8px 0;font-size:17px}
+
+.gap-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.gap-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-weight:700;margin-bottom:6px}
+.gap-top span:last-child{margin-left:auto}
+.gap-bar{display:flex;height:20px;border-radius:6px;background:var(--color-line);overflow:hidden}
+.gap-bar .got{display:block;background:var(--color-cobalt)}
+.gap-bar .gap{display:block;background:repeating-linear-gradient(45deg,var(--color-cty-yellow) 0 6px,#fff 6px 12px);border:2px dashed var(--color-ink);border-left-width:0}
+.gap-list small{color:var(--color-text-muted);font-weight:600}
+
 @media (max-width: 820px) {
   .app { grid-template-columns: 1fr; }
   .side { padding: 16px; }

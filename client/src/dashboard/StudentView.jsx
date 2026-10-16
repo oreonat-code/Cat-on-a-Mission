@@ -35,6 +35,34 @@ function StudentDetail({ cls, student }) {
     return { label: 'Needs support', icon: '↻', cls: 'need' };
   };
   const support = scores.filter((s) => s.score / MAX_TOPIC_SCORE < 0.6).map((s) => s.topic);
+  const TARGET = 0.8; // change to move the target
+  const targetScore = Math.ceil(MAX_TOPIC_SCORE * TARGET);
+  const gaps = scores
+    .map((s) => ({ ...s, gap: Math.max(0, targetScore - s.score) }))
+    .filter((g) => g.gap > 0)
+    .sort((a, b) => b.gap - a.gap);
+  const [ai, setAi] = useState({ status: 'idle', text: '' });
+
+  async function generateSummary() {
+    setAi({ status: 'loading', text: '' });
+    try {
+      const r = await fetch('/api/summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject,
+          answered: student.answered,
+          total: QUESTIONS_PER_STUDENT,
+          topics: scores.map((s) => ({ topic: s.topic, score: s.score, max: MAX_TOPIC_SCORE })),
+        }),
+      });
+      if (!r.ok) throw new Error();
+      const { summary } = await r.json();
+      setAi({ status: 'done', text: summary });
+    } catch {
+      setAi({ status: 'error', text: '' });
+    }
+  }
 
   return (
     <>
@@ -100,7 +128,26 @@ function StudentDetail({ cls, student }) {
           <p className="sum-head">
             {student.name} has finished <strong>{student.answered} of {QUESTIONS_PER_STUDENT}</strong> questions ({pct}%).
           </p>
-          
+          <div aria-live="polite">
+            {ai.status === 'done' && (
+              <>
+                <div className="ai-text">
+                  {ai.text.split('\n').filter(Boolean).map((line, i) => {
+                    const [label, ...rest] = line.split(':');
+                    return (
+                      <p className="ai-line" key={i}>
+                        <b>{label}:</b>{rest.join(':')}
+                      </p>
+                    );
+                  })}
+                </div>
+                <p className="sum-note">AI-generated. Check before sharing.</p>
+              </>
+            )}
+            {ai.status === 'error' && (
+              <p className="sum-note">AI summary unavailable. The summary below still works.</p>
+            )}
+          </div>
 
           <div className="sum-stats">
             <div><b>{accuracy}%</b><span> overall accuracy</span></div>
@@ -121,7 +168,32 @@ function StudentDetail({ cls, student }) {
               );
             })}
           </ul>
-
+          <h3>Learning gap</h3>
+            {gaps.length === 0 ? (
+              <p>No gaps. Every topic is at or above the target of {targetScore}/{MAX_TOPIC_SCORE}.</p>
+            ) : (
+              <ul className="gap-list">
+                {gaps.map((g) => (
+                  <li key={g.topic}>
+                    <div className="gap-top">
+                      <b>{g.topic}</b>
+                      <span className={`pill ${g.gap >= 2 ? 'need' : 'dev'}`}>
+                        {g.gap >= 2 ? '↻ Priority' : '◐ Close to target'}
+                      </span>
+                      <span>{g.gap} point{g.gap === 1 ? '' : 's'} to target</span>
+                    </div>
+                    <div className="gap-bar" aria-hidden="true">
+                      <i className="got" style={{ width: `${(g.score / MAX_TOPIC_SCORE) * 100}%` }} />
+                      <i className="gap" style={{ width: `${(g.gap / MAX_TOPIC_SCORE) * 100}%` }} />
+                    </div>
+                    <small>{g.score}/{MAX_TOPIC_SCORE} now, target {targetScore}/{MAX_TOPIC_SCORE}</small>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className="sum-note">
+              Target is {Math.round(TARGET * 100)}% per topic, based on {student.answered} answered questions.
+            </p>
           {!even && (
             <div className="sum-grid">
               <div className="sum-box strong">
