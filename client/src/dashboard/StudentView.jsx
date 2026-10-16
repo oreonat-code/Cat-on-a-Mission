@@ -1,38 +1,52 @@
-import { MAX_TOPIC_SCORE, QUESTIONS_PER_STUDENT, topicScores } from './mockData.js';
+import { Link, useOutletContext, useParams } from 'react-router-dom';
+import { useApi } from '../api.js';
+import { LoadState, NotFoundView } from './PlaceholderView.jsx';
 
-export default function StudentView({ subject, classId, student, onHome, onOpenClass }) {
-  const scores = topicScores(student, subject);
-  const best = scores.reduce((a, b) => (b.score > a.score ? b : a)).topic;
-  const next = scores.reduce((a, b) => (b.score < a.score ? b : a)).topic;
+export default function StudentView() {
+  const { classId, studentId } = useParams();
+  const { subject } = useOutletContext();
+  const { data, error } = useApi(`/dashboard/students/${encodeURIComponent(studentId)}?subject=${subject}`);
+
+  if (error?.status === 404) return <NotFoundView title="Student not found" />;
+  if (!data) return <LoadState error={error} />;
+
+  const { student, answered, topics, questionsPerStudent } = data;
+  // The class in the address must be this student's class.
+  if (String(student.class_id) !== classId) return <NotFoundView title="Student not found" />;
+
+  const rate = (t) => t.correct / t.answered;
+  const best = topics.reduce((a, b) => (rate(b) > rate(a) ? b : a), topics[0])?.topic;
+  const next = topics.reduce((a, b) => (rate(b) < rate(a) ? b : a), topics[0])?.topic;
 
   return (
     <>
       <p className="crumbs">
-        <button onClick={onHome}>{subject}</button> &gt;{' '}
-        <button onClick={() => onOpenClass(classId)}>Class {classId}</button> &gt; {student.name}
+        <Link to="/dashboard">{subject}</Link> &gt;{' '}
+        <Link to={`/dashboard/class/${classId}`}>{student.class.name}</Link> &gt; {student.name}
       </p>
-      <span className="tag">Class {classId}</span>
+      <span className="tag">{student.class.name}</span>
       <div className="stack">
         <div className="panel two">
           <div className="card">
             <h2>Questions complete</h2>
             <p className="big">
-              {student.answered}<small>/{QUESTIONS_PER_STUDENT}</small>
+              {answered}<small>/{questionsPerStudent}</small>
             </p>
             <div className="bar" aria-hidden="true">
-              <i style={{ width: `${(student.answered / QUESTIONS_PER_STUDENT) * 100}%` }} />
+              <i style={{ width: `${(answered / questionsPerStudent) * 100}%` }} />
             </div>
           </div>
           <div className="card">
             <h2>Correct answers by topic</h2>
+            {topics.length === 0 && <p>No {subject} answers yet.</p>}
             <div className="bars">
-              {scores.map((s) => (
-                <div key={s.topic} className="b">
-                  <span>{s.topic}</span>
+              {topics.map((t) => (
+                <div key={t.topic} className="b">
+                  <span>{t.topic}</span>
                   <span className="t" aria-hidden="true">
-                    <i style={{ width: `${(s.score / MAX_TOPIC_SCORE) * 100}%` }} />
+                    <i style={{ width: `${rate(t) * 100}%` }} />
                   </span>
-                  <span>{s.score}/{MAX_TOPIC_SCORE}</span>
+                  <span>{t.correct}/{t.answered}</span>
                 </div>
               ))}
             </div>
@@ -41,8 +55,8 @@ export default function StudentView({ subject, classId, student, onHome, onOpenC
         <div className="card sum">
           <h2>Short summary</h2>
           <p>
-            {student.name} has finished {student.answered} of {QUESTIONS_PER_STUDENT} questions. Strongest
-            topic: {best}. Worth practising next: {next}.
+            {student.name} has finished {answered} of {questionsPerStudent} {subject} questions.
+            {topics.length > 1 && ` Strongest topic: ${best}. Worth practising next: ${next}.`}
           </p>
         </div>
       </div>

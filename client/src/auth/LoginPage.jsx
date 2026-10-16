@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../../design/brand/cty-logo.webp';
 import AudioButton from '../components/AudioButton.jsx';
-import { checkTeacherPassword, lookupId } from './accounts.js';
+import { lookupId, teacherLogin } from './accounts.js';
+import { homePathFor, useSession } from './session.jsx';
 import './login.css';
 
 const ID_PROMPT = 'Type your ID, then press Next.';
 const UNKNOWN_ID = "We couldn't find that ID. Check it and try again.";
 
-export default function LoginPage({ onStudent, onTeacher }) {
+export default function LoginPage() {
+  const { session, signIn } = useSession();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   // step: 'id' until a teacher ID is found, then 'password'
@@ -20,28 +25,41 @@ export default function LoginPage({ onStudent, onTeacher }) {
     if (step === 'password') passwordRef.current?.focus();
   }, [step]);
 
+  // After sign-in, return to the page that sent us here if it belongs to this role.
+  function finish(next) {
+    signIn(next);
+    const home = homePathFor(next.role);
+    const from = location.state?.from;
+    navigate(from?.startsWith(home) ? from : home, { replace: true });
+  }
+
+  if (session) return <Navigate to={homePathFor(session.role)} replace />;
+
   async function submit(e) {
     e.preventDefault();
     if (busy) return;
     setMessage('');
 
-    if (step === 'id') {
-      if (!id.trim()) return setMessage('Type your ID first.');
-      setBusy(true);
-      const role = await lookupId(id);
-      setBusy(false);
-      if (role === 'student') return onStudent(id.trim().toUpperCase());
-      if (role === 'teacher') return setStep('password');
-      return setMessage(UNKNOWN_ID);
-    }
+    if (step === 'id' && !id.trim()) return setMessage('Type your ID first.');
+    if (step === 'password' && !password) return setMessage('Type your password first.');
 
-    if (!password) return setMessage('Type your password first.');
     setBusy(true);
-    const ok = await checkTeacherPassword(id, password);
-    setBusy(false);
-    if (ok) return onTeacher(id.trim().toUpperCase());
-    setPassword('');
-    setMessage('That password did not match. Try again.');
+    try {
+      if (step === 'id') {
+        const result = await lookupId(id);
+        if (result.role === 'student') return finish(result);
+        if (result.role === 'teacher') return setStep('password');
+        return setMessage(UNKNOWN_ID);
+      }
+      const result = await teacherLogin(id, password);
+      if (result) return finish(result);
+      setPassword('');
+      setMessage('That password did not match. Try again.');
+    } catch (err) {
+      setMessage(err.status === 429 ? 'Too many tries. Wait a few minutes, then try again.' : 'Something went wrong. Try again.');
+    } finally {
+      setBusy(false);
+    }
   }
 
   function changeId() {

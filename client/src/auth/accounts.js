@@ -1,25 +1,30 @@
-// Placeholder sign-in until the server has real accounts.
-// Both functions are async so they can be swapped for fetch('/api/...') calls
-// without changing the login page.
-//
-// DEMO ONLY: these passwords sit in the browser bundle. Real password checks
-// must happen on the server, against hashed passwords.
+import { ApiError, api } from '../api.js';
 
-const STUDENTS = ['S001', 'S002', 'S003'];
-const TEACHERS = { T001: 'cty123' };
-
-function normalise(id) {
-  return id.trim().toUpperCase();
+// Step 1: returns { role: 'student' | 'teacher' | null, id }. Students are signed in by this call.
+export function lookupId(id) {
+  return api('/auth/lookup', { method: 'POST', body: { id } });
 }
 
-// Returns 'student', 'teacher' or null when the ID is not known.
-export async function lookupId(id) {
-  const key = normalise(id);
-  if (STUDENTS.includes(key)) return 'student';
-  if (key in TEACHERS) return 'teacher';
-  return null;
+// Step 2 for teachers: returns { role, id } on success, or null for a wrong password.
+export async function teacherLogin(id, password) {
+  try {
+    return await api('/auth/login', { method: 'POST', body: { id, password } });
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 401) return null;
+    throw e;
+  }
 }
 
-export async function checkTeacherPassword(id, password) {
-  return TEACHERS[normalise(id)] === password;
+// Returns the signed-in { role, id }, or null.
+export async function currentSession() {
+  try {
+    return await api('/auth/me');
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 401) return null;
+    throw e;
+  }
+}
+
+export function logout() {
+  return api('/auth/logout', { method: 'POST' });
 }
